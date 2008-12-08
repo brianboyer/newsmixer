@@ -35,7 +35,6 @@
 			$('.charsLeft').text('140');
 			var template_data = data['template_data'];
 			var template_bundle_id = data['template_bundle_id'];
-			template_data.verb_color = $('#bumbles').children(':first').find('.verb').css('backgroundColor');
 			feedTheFacebook(template_data,template_bundle_id);
 		} else {
 			alert(data['errors']);

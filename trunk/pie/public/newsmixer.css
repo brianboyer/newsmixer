@@ -192,7 +192,7 @@ div.jqmWindow .panel {padding:0;height:28em;overflow:auto;position:relative;bord
 #article-body a.selected a.annotation-button .breakout,
 #article-body a.selected a.annotation-button .new-breakout {display:block !important;}
 
-.article-questions .message {padding:1em;text-align:center;background:rgb(175,255,175);}
+.article-questions .message {padding:1em;text-align:center;background:rgb(175,255,175);margin:0 !important;width:auto !important;}
 .article-questions .graf-info {padding:1em 2em;font-family:Georgia,Garamond,serif;}
 .article-questions .add-question-prompt {font-style:italic;}
 .article-questions .question-form {background:rgb(255,250,194);overflow:hidden;padding:2%;text-align:right;position:absolute;bottom:0;width:96%;}

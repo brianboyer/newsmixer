@@ -4,6 +4,7 @@
 {% load humanize %}
 {% load bumbles %}
 {% load activity %}
+{% load articles %}
 {% block title %}Stir it up{% endblock %}
 {% block filling %}
 <div id="newsfeed">
@@ -54,17 +55,11 @@
     </a></p>
 </div></div>
 {% endif %}
-<div id="news-and-letters">
+<div class="articles-and-letters">
     <h3>News and letters from Eastern Iowa</h3>
     {% for article_or_pick in articles_and_picks %}
         {% if article_or_pick.headline %}
-        <div>
-            <h4><a href="{{ article_or_pick.get_absolute_url }}">{{ article_or_pick.headline }}</a></h4>
-            <p class="byline">{{ article_or_pick.author }}</p>
-            <p>{{ article_or_pick.summary }}</p>
-            <p class="timesince">{{ article_or_pick.pub_date|timesince }} ago</p>
-            <p class="activity">People have written: {% show_article_activity article_or_pick %}</p>
-        </div>
+        {% show_article article_or_pick %}
         {% else %}
         <div class="letter">
             <h4>A letter to the editors...</h4>
@@ -83,6 +78,7 @@
         </div>
         {% endif %}
     {% endfor %}
+    <a href="/article/page/1">More articles...</a>
 </div>
 </div>
 <div id="conversation">

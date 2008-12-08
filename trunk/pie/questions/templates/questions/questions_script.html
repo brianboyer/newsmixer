@@ -1,0 +1,213 @@
+{% load facebook %}
+{% load answers %}
+
+<script type="text/javascript">
+  $.blockUI.defaults['message'] = '<center><h1>Please wait...</h1><img align="center" src="/public/images/ajax-loader.gif" alt="loading" /></center>';
+  $.blockUI.defaults['css']['backgroundColor'] = "transparent";
+  $.blockUI.defaults['css']['border'] = "0";
+  
+  scrollQuestions = '';
+
+  $(document).ready(function() {
+    //handle anchor links
+    if(window.location.hash) {
+      aname = window.location.hash.slice(1);
+      params = aname.split("-");
+      if (params[0]=='question' || params[0]=='answer') {
+        //because of scrollQuestions, this will scroll for us
+        scrollQuestions = aname;
+        createModal(params[1]);
+      } else if (params[0]=='bumble') {
+        scrollDiv("#bumbles",aname);
+        scrollDiv("body",aname);
+      }
+    }
+    
+    //read the article content and slap on links to the annotations
+    $("#article-body > p").each( function(i) {
+      $(this).wrap('<a id="graf-'+i+'" class="graf" target="#" onclick="return false;"></a>')
+      $("#graf-"+i).mouseover(function(){
+        $(this).attr('ismouseover','true');
+        $(this).addClass('selected');
+      });
+      
+      $("#graf-"+i).mouseout(function(){
+        $(this).attr('ismouseover','false');
+        $(this).removeClass('selected');
+      });
+      
+      if ( typeof(annotation_info[i]) != "undefined" ) {
+        
+        q_msg = annotation_info[i]['questions']+" question";
+        if (annotation_info[i]['questions'] != 1) q_msg += "s";
+        
+        a_msg = annotation_info[i]['answers']+" answer";
+        if (annotation_info[i]['answers'] != 1) a_msg += "s"
+        
+        $(this).after($("#annotations-"+i))
+          .after('<a id="annotation-button-'+i+'" class="annotation-button" href="#" onclick="createModal('+i+');return false;"><span class="total">'+(annotation_info[i]['questions']+annotation_info[i]['answers'])+'</span><span class="breakout">Ask or answer:<br/>'+q_msg+'<br/>'+a_msg+'</span></a>');
+      } else {
+        
+        var html = '<a id="annotation-button-'+i+'" class="annotation-button new" href="#" onclick="createModal('+i+');return false;"><span class="new-breakout">Ask a question</span></a>';
+        
+        $(this).after(html);
+      }
+    });
+  });
+
+  //close the modal window
+  function destroyModal() {  
+    $("#dialog").jqmHide().remove();
+  }
+  
+  //create the modal window
+  function createModal(block_id) {
+    if($("#dialog").size()>0) destroyModal();
+    
+    //decide which tab to show first
+    if(typeof(annotation_info[block_id]) != "undefined" && annotation_info[block_id]['questions'] > 0) {
+      tab1_class = "";
+      tab2_class = "selected";
+      tab2_style = "";
+      panel1_style = "display:none;";
+      panel2_style = "";
+    } else {
+      tab1_class = "selected";
+      tab2_class = "";
+      tab2_style = "display:none;";
+      panel1_style = "";
+      panel2_style = "display:none;";
+    }
+    
+    //build the skeleton of the window
+    $("body").append('<div class="jqmWindow article-questions" id="dialog"><div class="tabs"><a href="#panel-1" class="'+tab1_class+'" id="tab-1" title="panel-1">Ask a Question</a><a href="#panel-2" style="'+tab2_style+'" class="'+tab2_class+'" title="panel-2">Questions and Answers</a><a href="#" class="close">Close</a></div><div id="panel-1" class="panel" style="'+panel1_style+'">{% if not user.is_authenticated %}<div class="message">Log in with your Facebook account to ask or answer a question!<br/>'
+        + '{% show_connect_button 1 %}'
+        + '</div>{% endif %}<div class="graf-info"><span class="add-question-prompt">Ask a question about this paragraph:</span><p>'+$("#graf-"+block_id+" p").text()+'</p></div>{% if user.is_authenticated %}<form method="POST" class="question-form" action="/questions/add_to_article/{{article.id}}/'+block_id+'/"><div class="prompt"><label for="id_text">Q:</label></div><div class="body">{{ question_form.text }}<div class="notify">{{ question_form.notify }}<label for="id_notify">Want an email notification when your question is answered?</label></div><div class="submit"><input type="button" onclick="destroyModal()" value="Cancel" /> <input type="submit" value="Submit Question"/></div></div></form>{% endif %}</div><div><div id="panel-2" class="panel" style="'+panel2_style+'"></div></div></div>'
+    );
+    
+    //ajaxify the question form
+    $('form.question-form').ajaxForm({dataType:'json',beforeSubmit:submittingForm,success:submitQuestion});
+    
+    //initialize tabs
+    $(".tabs a").click(function(){
+      $("#"+$('.tabs a.selected').attr("title")).toggle();
+      $('.tabs a.selected').toggleClass('selected');
+      $("#"+$(this).attr("title")).toggle();
+      $(this).toggleClass('selected');
+      return false;
+    });
+    
+    //initialize close tab
+    $(".tabs a.close").click(function(){
+      destroyModal();
+      return false;
+    })
+    
+    //show the window and fill the questions pane
+    $("#dialog").jqm({trigger:false}).jqmShow();
+    loadQuestions(block_id,scrollQuestions);
+    scrollQuestions='';
+  }
+  
+  //disable buttons after you click submit
+  function submittingForm(data,form,options) {
+    form.find('input[type=submit]').val('Saving ...');
+    form.find('.submit input').attr('disabled','True');
+    return true;
+  }
+  
+  //call back after we finished submitting our question
+  function submitQuestion(data){
+    // give our user some update so s/he knows something is happening
+    $('.question-form').find('input[type=submit]').val('Submit Question');
+    $('.question-form').find('.submit input').removeAttr('disabled');
+    if(data['success']){
+      // clear the form
+      $('.question-form').resetForm()
+      // add this new answer to the local list, switch tabs, and update the q&a list
+      addAnnotation(data['block'],'question');
+      $('.tabs a[title=panel-2]').show().click();
+      loadQuestions(data['block'],'question-'+data['question_id']);
+      // tell facebook
+      var template_data = data['template_data'];
+      var template_bundle_id = data['template_bundle_id'];
+      feedTheFacebook(template_data,template_bundle_id,function(){});
+    } else {
+      // opps user missed something
+      alert(data['errors']);
+    }
+  }
+  
+  //call back after we finished submitting our answer
+  function submitAnswer(data){
+    // give our user some update so s/he knows something is happening
+    $('.answer-form').find('input[type=submit]').val('Submit Answer');
+    $('.answer-form').find('.submit input').removeAttr('disabled');
+    if(data['success']){
+      // clear the form
+      $('.answer-form').resetForm()
+      // add this new answer to the local list and update the q&a list
+      addAnnotation(data['block'],'answer');
+      loadQuestions(data['block'],'answer-'+data['answer_id']);
+      // tell facebook
+      var template_data = data['template_data'];
+      var template_bundle_id = data['template_bundle_id'];
+      feedTheFacebook(template_data,template_bundle_id,function(){});
+    } else {
+      // opps user missed something
+      alert(data['errors']);
+    }
+  }
+  
+  //load the second panel with questions and answers
+  function loadQuestions (block) {
+    // keep track of our special entry so we can scroll to it scroll to it
+    if (arguments.length > 1) $("#dialog #panel-2").attr('scrollTo',arguments[1]);
+    else $("#dialog #panel-2").removeAttr('scrollTo');
+    // block out the list until we finish updating it
+    $("#dialog #panel-2").parent().block();
+    $("#dialog #panel-2")
+      .load("/questions/",{'article':{{ article.id }},'block':block},function(){
+          // unblock everything, initalize forms, and scroll to our special entry
+          $(this).parent().unblock();
+          $('form.answer-form').ajaxForm({dataType:'json',beforeSubmit:submittingForm,success:submitAnswer});
+          if ($(this).attr('scrollTo')) scrollDiv('#'+this.id,$(this).attr('scrollTo'));
+    });
+  }
+  
+  //keep track of new answers and questions, update annotaion links on article
+  function addAnnotation(block,type) {
+    if ( typeof(annotation_info[block]) == "undefined" )
+      annotation_info[block] = {"questions":0,"answers":0};
+    
+    if( type == 'question' ) {
+      annotation_info[block]['questions']+=1;
+    } else if ( type == 'answer' ) {
+      annotation_info[block]['answers']+=1;
+    }
+
+    q_msg = annotation_info[block]['questions']+" question";
+    if (annotation_info[block]['questions'] != 1) q_msg += "s";
+
+    a_msg = annotation_info[block]['answers']+" answer";
+    if (annotation_info[block]['answers'] != 1) a_msg += "s"
+    
+    $('#annotation-button-'+block)
+      .removeClass("new")
+      .html('<span class="total">'+(annotation_info[block]['questions']+annotation_info[block]['answers'])+'</span><span class="breakout">Ask or answer:<br/>'+q_msg+'<br/>'+a_msg+'</span>')
+
+  }
+  
+  //scroll a div to a named anchor
+  function scrollDiv(selector,anchor) {
+    if ($(selector+' a[name='+anchor+']').length)
+      $(selector).animate({
+        scrollTop: ($(selector+' a[name='+anchor+']').offset().top+$(selector).scrollTop()) - $(selector).offset().top - 10},100);
+    //else alert(selector+' a[name='+anchor+']');
+  }
+  
+  //json with info for annotations
+  annotation_info = {{ annotation_info_js|safe }} 
+</script>
+
+

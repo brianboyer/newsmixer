@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load letters %}
+{% load facebook %}
+{% block title %}Letters to the editor{% endblock %}
+{% block filling %}
+<div class="content">
+    <div class="letters-message">
+        <h2>Letters to the Editor</h2>
+        <p>Add your voice to the marketplace of ideas. Offer a thoughtful point of view in 250 words or less.</p>
+        {% if user.is_authenticated %}
+        <p><a class="new-letter-button" href="/letters/new">Write a letter to the editor</a></p>
+        {% else %}
+        <div>
+            <strong>Log in to write a letter to the Editor:</strong>
+            {% show_connect_button %}
+        </div>
+        {% endif %}
+    </div>
+  
+  <h2>Editor Highlights</h2>
+  <div class="editor-highlights">
+  {% for letter in letter_list %}
+    {% include "letters/letter_simple.html" %}
+  {% endfor %}
+  </div>
+   
+  <h2>All Letters</h2>
+  <div class="content">
+  {% for letter in all_letters %}
+    {% include "letters/letter_simple.html" %}
+  {% endfor %}
+  </div>
+ 
+</div>
+{% endblock %}

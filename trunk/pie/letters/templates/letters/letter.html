@@ -1,0 +1,34 @@
+{% load letters %}
+{% load facebook %}
+{% load humanize %}
+{% load profile %}
+<div class="letter">
+    <div class="display">
+    <h5><a href="{{ letter.get_absolute_url }}">{{ letter.title }}</a>
+        {% if letter.letter %}
+            <span class="inre"> in reply to: 
+                <a href="{{ letter.letter.get_absolute_url }}">{{ letter.letter.title }}</a></span>
+        {% else %}{% if letter.article %}
+            <span class="inre"> in reply to the article: 
+                <a href="{{ letter.article.get_absolute_url }}">{{ letter.article.headline }}</a></span>
+        {% endif %}{% endif %}</h5>
+    <div class="author">{% show_facebook_photo letter.user %}</div>
+    <p class="byline">by {{ letter.user.get_profile.full_name }}</p>
+    <p class="timesince">{{ letter.created|timesince }} ago</p>
+    {{ letter.body|linebreaks }}
+    {% if user.is_authenticated %}
+    <div class="actions">
+      {% show_follow_link letter.user.get_profile %}
+      <a href="{{ letter.get_absolute_url }}flag_as_offensive" class="offensive-button">Flag as offensive</a>
+      <a href="{{ letter.get_absolute_url }}reply" class="reply-button">Reply to this</a>
+    </div>
+    {% endif %}
+    </div>
+    {% if replies.count %}
+    <div class="replies">
+    {% for l in replies.all %}
+      {% show_letter l %}
+    {% endfor %}
+    </div>
+    {% endif %}
+</div>

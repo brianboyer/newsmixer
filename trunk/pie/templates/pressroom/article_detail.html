@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load bumbles %}
+{% load letters %}
+{% load answers %}
+{% load facebook %}
+
+{% block title %}{{ object.headline }}{% endblock %}
+
+{% block script %}
+  <script src="/public/jqModal.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/public/jquery.blockUI.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/public/jquery.maxlength.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
+{% block filling %}
+<div class="article-main">
+    <div id="welcome"><div class="bottom-corner">
+        <h2>Take part in the conversation.</h2>
+        <span>You can ask a question on the story by highlighting the paragraph and clicking the speech bubble on the left of each section. If you have something small to say, write a quip. Have a lot to say? Write a letter to the editor.</span>
+    </div></div>
+  <h2>{{ object.headline }}</h2>
+  <div class="article-info">
+    <span class="author">{{ object.author }}</span>
+    <span class="date">{{ object.pub_date }}</span>
+  </div>
+  <div id="article-body">
+    <div class="media"></div>
+    {{ object.body|linebreaks }}
+  </div>
+
+  <div class="article-letters">
+    <div class="letters-message">
+        <h2>Letters to the Editor</h2>
+        {% if user.is_authenticated %}
+        <p>Add your voice to the marketplace of ideas.<br/>Offer a thoughtful point of view in 250 words or less.</p>
+        <p><a class="new-letter-button" href="/letters/reply_to_article/{{ object.id }}">Write a letter to the editor</a></p>
+        {% else %}
+        <div>
+            To write a letter to the editor,<br/> log in with Facebook Connect.
+            {% show_connect_button %}
+        </div>
+        {% endif %}
+    </div>
+
+    {% list_letters_for_article object %}
+  </div>
+</div>
+
+<div class="sidebar">
+    <div class="article-bumbles"><div class="bottom-corner">
+        <h3>What are people saying right now?</h3>
+        <div class="inside">
+        {% if user.is_authenticated %}
+            {% show_bumble_form object %}
+        {% else %}
+            <h4>To join the conversation,<br/>log in with Facebook Connect.
+            {% show_connect_button %}</h4>
+        {% endif %}
+        {% show_article_bumbles object %}
+        </div>
+    </div></div>
+</div>
+
+{% show_bumbles_script '0' 'false' object %}
+{% show_questions_script object %}
+{% endblock %}

@@ -70,7 +70,8 @@ a:visited:hover {color:#2e2a2b;}
 #you img {float:right;vertical-align:top;margin-left:0.6em;}
 #you div {font-size:.8em;font-weight:bold;}
 #you div form {margin-top:.5em;}
-#footer {clear:left;border-top:solid .2em #AAA;width:58em;margin:0 auto;}
+#footer {clear:left;width:58em;margin: 0 auto;padding-top:1em;}
+#footer hr {border:0;height:.2em;background-color:#AAA;}
 #footer p {font-size:0.7em;}
 #body {width:58em;margin:1px auto;}
 
@@ -113,19 +114,19 @@ a:visited:hover {color:#2e2a2b;}
 #featured-comment p#question {font-size:1em;}
 #featured-comment h4#letter_title {font-size:1.5em;margin:0.2em 0;}
 #featured-comment p#letter_body {font-size:1em;}
-#news-and-letters {}
-#news-and-letters div {margin-bottom:1em;}
-#news-and-letters div h4 {margin:0;}
-#news-and-letters div p {margin:0;}
-#news-and-letters div p.byline,
+
+.articles-and-letters div {margin-bottom:1em;}
+.articles-and-letters div h4 {margin:0;}
+.articles-and-letters div p {margin:0;}
+.articles-and-letters div p.byline,
 .article-main .article-info .author {font-size:0.7em;margin-top:0.2em;font-weight:bold;}
-#news-and-letters div p.timesince,
+.articles-and-letters div p.timesince,
 .article-main .article-info .date {font-size:0.8em;margin-top:0.5em;}
-#news-and-letters div.letter {background-color:#f6f2e0;margin:0 -.5em 1em -.5em;padding:.5em;}
-#news-and-letters div.letter h5 {font-size:1em;font-weight:bold;margin:0;}
-#news-and-letters div.letter div.author {float:left; margin:.5em .5em 0 0;}
-#news-and-letters div.letter p.inre {font-size:0.8em;}
-#news-and-letters div p.activity {font-size:.8em;}
+.articles-and-letters div.letter {background-color:#f6f2e0;margin:0 -.5em 1em -.5em;padding:.5em;}
+.articles-and-letters div.letter h5 {font-size:1em;font-weight:bold;margin:0;}
+.articles-and-letters div.letter div.author {float:left; margin:.5em .5em 0 0;}
+.articles-and-letters div.letter p.inre {font-size:0.8em;}
+.articles-and-letters div p.activity {font-size:.8em;}
 
 #conversation, .sidebar {float:left;width:19em;overflow:hidden;margin-top:1.6em;}
 #featured-question {background-color:#d1cebb;background:#d1cebb url(/public/images/newsmixer/bl-corner-empty.png) bottom left no-repeat;margin-bottom:1.6em;}
@@ -392,4 +393,4 @@ div#new-letter-errors {color:red;font-weight:bold;padding:0.5em;}
 .feedback label{font-weight:bold;color:#999;display:block; margin-bottom:.5em;}
 .contact{margin-bottom: 1.5em;}
 .contact .column{margin-bottom: 1em;}
-.feedback input[type=submit]{margin:.85em 0 2em 0;font-size:2em;}
+.feedback input[type=submit]{margin:.85em 0 0 0;font-size:2em;}

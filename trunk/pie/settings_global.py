@@ -84,6 +84,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.flatpages',
     
+    'pie.articles',
     'pie.authentication',
     'pie.bumbles',
     'pie.profiles',

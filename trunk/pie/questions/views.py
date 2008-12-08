@@ -36,8 +36,9 @@ def get_questions(request):
         template_dict = {
             'questions': questions,
             'answer_form': AnswerForm(),
-            'next':questions[0].get_absolute_url(),
         }
+        if questions.count() > 0:
+            template_dict['next']=questions[0].get_absolute_url()
         return render_to_response('questions/ajax_article_questions.html', template_dict, context_instance=RequestContext(request))
 
 @login_required

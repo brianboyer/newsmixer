@@ -59,6 +59,16 @@ def get_bumbles(request):
         })
         return HttpResponse(json, mimetype='application/json')            
 
+VERB_COLORS = {
+    'thinks':    '#079107',
+    'loves':     '#611739',
+    'feels':     '#9d6884',
+    'agrees':    '#cb8337',
+    'disagrees': '#6b6b6d',
+    'wonders':   '#2a436a',
+    'hates':     '#2e2a2b',
+    }
+
 @login_required
 def create(request,option=None):
     if request.method == "POST":
@@ -68,7 +78,7 @@ def create(request,option=None):
             verb = f.instance.verb
             template_data = {
                 "verb":        verb,
-                "verb_color":  '', #verb color is set by the javascript
+                "verb_color":  VERB_COLORS[verb],
                 "bumble":      f.instance.message,
                 "url":         settings.ROOT_URL + f.instance.get_absolute_url(),
                 "headline":    truncatewords(f.instance.article.headline,20),

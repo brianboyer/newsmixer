@@ -94,6 +94,8 @@ a:visited:hover {color:#2e2a2b;}
 /* body is 54em wide, newsfeed + conversation = 53em, with 1em to spare between */
 #newsfeed, .article-main {float:left;margin-right:1.6em;width:36em;padding:0 0.6em;}
 
+.article-main .article-info span {display:block;}
+
 #welcome {text-align:center;}
 #welcome p {font-size:1.1em;}       
 #welcome,
@@ -115,8 +117,10 @@ a:visited:hover {color:#2e2a2b;}
 #news-and-letters div {margin-bottom:1em;}
 #news-and-letters div h4 {margin:0;}
 #news-and-letters div p {margin:0;}
-#news-and-letters div p.byline {font-size:0.7em;margin-top:0.2em;font-weight:bold;}
-#news-and-letters div p.timesince {font-size:0.8em;margin-top:0.5em;}
+#news-and-letters div p.byline,
+.article-main .article-info .author {font-size:0.7em;margin-top:0.2em;font-weight:bold;}
+#news-and-letters div p.timesince,
+.article-main .article-info .date {font-size:0.8em;margin-top:0.5em;}
 #news-and-letters div.letter {background-color:#f6f2e0;margin:0 -.5em 1em -.5em;padding:.5em;}
 #news-and-letters div.letter h5 {font-size:1em;font-weight:bold;margin:0;}
 #news-and-letters div.letter div.author {float:left; margin:.5em .5em 0 0;}
@@ -141,7 +145,7 @@ a:visited:hover {color:#2e2a2b;}
 #featured-question .inside,
 .article-bumbles .inside,
 #buzz .bumbles {margin:0 2px;overflow:hidden;background-color:#fdfcf7;border:0;padding:.4em;max-height:100%;}
-.timesince, .count, .activity {color:#803660;}
+.timesince, .count, .activity, .date {color:#803660;}
 
 div.questions {}
 div.questions textarea, div.annotations textarea {display:block;}

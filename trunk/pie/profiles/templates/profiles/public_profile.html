@@ -9,10 +9,10 @@
 {% if followers or following %}
 <div class="sidebar">
   {% if followers %}
-  {{ profile.full_name }} is followed by:<br/>{% show_profile_mosaic followers %}<br/><br/>
+  {{ profile.full_name }} <nobr>is followed by:</nobr><br/>{% show_profile_mosaic followers %}<br/><br/>
   {% endif %}
   {% if following %}
-  {{ profile.full_name }} is following:<br/>{% show_profile_mosaic following %}
+  {{ profile.full_name }} <nobr>is following:</nobr><br/>{% show_profile_mosaic following %}
   {% endif %}
 </div>
 {% endif %}

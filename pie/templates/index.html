@@ -49,8 +49,8 @@
         {% endif %}
     <p class="timesince">{{ featured_comment.letter.created|timesince }} ago</p>
     {% endif %}
-    <p class="activity"><a href="/profiles/#friends">
-        This week, your friends have written: {% show_activity featured_comment.activity %}
+    <p class="activity">This week your friends wrote: 
+        <a href="/profiles/#friends">{% show_activity featured_comment.activity %}
     </a></p>
 </div></div>
 {% endif %}

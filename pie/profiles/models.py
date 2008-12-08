@@ -35,7 +35,7 @@ FACEBOOK_FIELDS = ['uid,name,first_name,pic_square_with_logo,affiliations,status
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
     facebook_id = models.IntegerField()
-    following = models.ManyToManyField('self',symmetrical=False,related_name='followers')
+    following = models.ManyToManyField('self',symmetrical=False,related_name='followers',blank=True)
     __facebook_info = None
     __facebook_obj = None
     __friends_profiles = None

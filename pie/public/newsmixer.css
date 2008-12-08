@@ -197,14 +197,14 @@ div.jqmWindow .panel {padding:0;height:28em;overflow:auto;position:relative;bord
 .article-questions .add-question-prompt {font-style:italic;}
 .article-questions .question-form {background:rgb(255,250,194);overflow:hidden;padding:2%;text-align:right;position:absolute;bottom:0;width:96%;}
 .article-questions .question-form textarea {width:96%;border:.1em solid rgb(255,244,80);font-size:1.6em;padding:.2em}
-.article-questions .question-form .prompt {float:left;font-size:4em;color:#999;font-weight:bold;line-height:.8em;}
+.article-questions .question-form .prompt {float:left;font-size:4em;color:#999;font-weight:bold;margin-top:-0.2em;}
 .article-questions .question-form .notify {display:none;}
 .article-questions .question-form .body {overflow:hidden;}
 
 .article-questions .answer-form {background:rgb(255,253,232);padding:.4em;}
 .article-questions .answer-form textarea,
 .article-questions .answer-form input[type=text] {width:98%;border:.1em solid rgb(255,244,80);font-size:1em;padding:.2em}
-.article-questions .answer-form .prompt {float:left;font-size:3em;color:#999;font-weight:bold;line-height:.8em;}
+.article-questions .answer-form .prompt {float:left;font-size:3em;color:#999;font-weight:bold;margin-top:-0.2em;}
 .article-questions .answer-form .body {overflow:hidden;}
 
 .article-questions .question-form .submit,
@@ -220,7 +220,7 @@ div.jqmWindow .panel {padding:0;height:28em;overflow:auto;position:relative;bord
 .article-questions .answer,
 .article-questions .question {position:relative;padding:.4em;overflow:hidden;}
 .article-questions .answer .prompt,
-.article-questions .question .prompt {float:left;font-size:3em;color:#999;font-weight:bold;line-height:.8em;}
+.article-questions .question .prompt {float:left;font-size:3em;color:#999;font-weight:bold;margin-top:-0.2em;}
 .article-questions .answer .reference,
 .article-questions .question .actions {position:absolute;bottom:0;font-size:.8em;}
 .article-questions .answer div.text_and_ref,

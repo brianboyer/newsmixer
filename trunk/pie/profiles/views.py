@@ -61,8 +61,6 @@ def personal(request):
     # Convert the array of friends into a comma-delimeted string.
     exclude_ids = ','.join(friends_list) 
     
-    print request
-    
     template_dict = {
         'me':        me,
         'my_comments':  me.get_recent_comments(),

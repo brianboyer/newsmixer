@@ -61,16 +61,18 @@ def personal(request):
     # Convert the array of friends into a comma-delimeted string.
     exclude_ids = ','.join(friends_list) 
     
+    print request
+    
     template_dict = {
         'me':        me,
         'my_comments':  me.get_recent_comments(),
         'friends':   friends,
         'following': me.get_following_profiles(),
         'followers': me.get_followers_profiles(),
-        'comments':   comments,
+        'comments':  comments,
         
-        'root_url':settings.ROOT_URL,
-        'content':content,
+        'action_url':  settings.ROOT_URL + request.path,
+        'content':     content,
         'exclude_ids': exclude_ids,
         
     }

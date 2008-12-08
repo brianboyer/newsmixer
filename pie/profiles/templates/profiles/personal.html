@@ -36,13 +36,13 @@
         <script type="text/fbml">
             <fb:fbml>
                 <fb:request-form
-                    action="{{ root_url }}"
+                    action="{{ action_url }}"
                     method="POST"
                     invite="true"
-                    type="Working Title"
+                    type="News Mixer"
                     content="{{ content }}">
                     <fb:multi-friend-selector
-                        actiontext="Invite your friends to join the conversation at Working Title!"
+                        actiontext="Ask your friends to join the conversation at News Mixer!"
                         exclude_ids="{{ exclude_ids }}"
                         bypass="cancel"
                         rows="3">

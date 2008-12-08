@@ -45,8 +45,8 @@ def personal(request):
     
     content = """
         <fb:name uid="%s" firstnameonly="true" shownetwork="false"/>
-        wants to invite you to talk about the news in new ways,
-        <fb:req-choice url="%s" label="Check out Working Title!"/>
+        wants to invite you to join the conversation.
+        <fb:req-choice url="%s" label="Check out News Mixer!"/>
         """ % (me.facebook_id, request.facebook.get_add_url())
     from cgi import escape 
     content = escape(content, True) 

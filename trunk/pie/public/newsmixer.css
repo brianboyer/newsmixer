@@ -331,7 +331,7 @@ form.bumble-form select option[value=hates] {background-color: #2e2a2b;}
 .letter-simple .inre,
 .letter .display .inre {font-weight:normal;}
 
-.narrow {width:32em;margin:0 auto;}
+.narrow {width:32em;margin:0 auto;overflow:hidden;}
 
 /* Button section */
 .reply-button,.offensive-button,.new-letter-button,.subscribe-button,.unsubscribe-button {
@@ -347,9 +347,9 @@ a.reply-button:hover,a.offensive-button:hover,a.new-letter-button:hover,a.subscr
     background-color:#c9cedd;color:#6b6b6b;
 } 
 
-form#new-letter p select {width:15em;margin-left:1em;font-size:1em;}
-form#new-letter p input {font-size:1em;width:30em;margin-left:1em;}
-form#new-letter div textarea {font-size:1.2em;width:40em;height:20em;}
+form#new-letter {padding:0 0 2em;}
+form#new-letter p input {font-size:1em;width:95%;}
+form#new-letter div textarea {font-size:1.2em;width:95%;height:20em;}
 form#new-letter ul.errorlist {color:red;}
 div#new-letter-errors {color:red;font-weight:bold;padding:0.5em;}
 

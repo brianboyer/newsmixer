@@ -1,0 +1,14 @@
+{% load facebook %}
+
+{% if not user.is_authenticated %}
+  <div class="message">Log in with your Facebook account to ask or answer a question!<br/>
+  {% show_connect_button %}
+  </div>
+{% endif %}
+{% if questions %}
+{% for q in questions %}
+{% include "questions/question.html" %}
+{% endfor %}
+{% else %}
+<h2>No questions or answers yet!</h2>
+{% endif %}

@@ -1,0 +1,15 @@
+
+{% load facebook %}
+<div class="feed-title bumble">{% show_facebook_name bumble.user %} <a href="{{ bumble.get_absolute_url }}">quipped about the article</a>: {{ bumble.article.headline }}. <span class="time">{{ bumble.created|timesince }} ago</span></div>
+<div class="feed-profile-pic bumble">{% show_facebook_photo bumble.user %}</div>
+<div class="feed-body bumble">
+  <div class="primary-title">
+  <span class="name"><a href="{{bumble.user.get_profile.get_absolute_url}}">{{bumble.user.get_profile.first_name}}</a></span>
+  <span class="verb" title="{{bumble.verb}}">{{ bumble.verb }}</span>
+  {{ bumble.message|truncatewords:"50" }}
+  </div>
+  <br/>
+  <div class="secondary-title">{{ bumble.article.headline }}</div>
+  <div class="secondary-body">{{ bumble.article.body|truncatewords:"20"|linebreaks }}</div>
+  <div class="action-link"><a href="{{ bumble.get_absolute_url }}">Quip back!</a></div>
+</div>

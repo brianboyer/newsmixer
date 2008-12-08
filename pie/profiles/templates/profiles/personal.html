@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load facebook %}
+{% load profile %}
+
+{% block title %}{{ profile.full_name }}{% endblock %}
+
+{% block script %}
+  <script src="/public/jqModal.js" type="text/javascript" charset="utf-8"></script> 
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+      //prep the tab strip
+      $(".tabs a").click(function(){
+        $("#"+$('.tabs a.selected').attr("title")).toggle();
+        $('.tabs a.selected').toggleClass('selected');
+        $("#"+$(this).attr("title")).toggle();
+        $(this).toggleClass('selected');
+        return false;
+      });
+      //select the initial tab
+      if(window.location.hash) {tab = window.location.hash;} else {tab = '#friends';}
+      $(".tabs a[title=" + tab.slice(1) + "]").click();
+      //prep the facebook invites modal window
+      $('#dialog').jqm();
+    });
+  </script>
+{% endblock %}
+
+{% block filling %}
+  <div class="facebook-info">
+  {% show_medium_profile me %}
+  <div class="invite-button"><a href="#" class="jqModal">Invite your Facebook friends to join the conversation!</a></div>
+  </div>
+
+<div class="jqmWindow facebookInvitesModal" id="dialog">
+    <fb:serverfbml>
+        <script type="text/fbml">
+            <fb:fbml>
+                <fb:request-form
+                    action="{{ root_url }}"
+                    method="POST"
+                    invite="true"
+                    type="Working Title"
+                    content="{{ content }}">
+                    <fb:multi-friend-selector
+                        actiontext="Invite your friends to join the conversation at Working Title!"
+                        exclude_ids="{{ exclude_ids }}"
+                        bypass="cancel"
+                        rows="3">
+                </fb:request-form>
+            </fb:fbml>
+        </script>
+    </fb:serverfbml>
+</div>
+  
+<div class="tabs">
+    <a href="#friends" title="friends">Your friends and follows</a>
+    <a href="#subscribers" title="subscribers">Your followers</a>
+    <a href="#comments" title="comments">Comments by you</a>
+</div>
+
+<div id="friends" class="panel" style="display:none;">
+{% if friends or following %}
+    <div class="sidebar">
+        {% if friends %}
+        <h3>Your Facebook friends on Newsmixer:</h3>
+        {% show_profile_mosaic friends %}<br/>
+        <div class="invite-button"><a href="#" class="jqModal">Invite more Facebook friends to join the conversation!</a></div>
+        <br/>
+        {% else %}
+        <h3>None of your Facebook friends have joined News Mixer</h3>
+        <p>Following other people and inviting your Facebook friends to participate will help make News Mixer a great community. </p>
+        <p><a href="#" class="jqModal">Invite your Facebook friends to join</a> the site. Then follow their comments here in your profile or on your Facebook news feed. </p>
+        {% endif %}
+        {% if following %}
+        <h3>People you are following on Newsmixer:</h3>
+        {% show_profile_mosaic following %}
+        {% else %}
+        <h3>You don't seem to be following anyone yet</h3>
+        <p>Following other users helps make News Mixer a great community. </p>
+        <p>You can meet new people on News Mixer. Read comments on the site and click on the user's name or profile picture. From their profile page you can follow their comments. New comments appear in this feed. Don't worry, you can choose to stop following anyone at anytime.</p>
+        {% endif %}
+    </div>
+    {% if comments %}
+    <ol class="comments">
+        {% for c in comments %}
+        <li{% if forloop.first %} class="first"{% endif %}>{% show_comment c %}</li>
+        {% endfor %}
+    </ol>
+    {% else %}
+    Your friends have not said anything yet.
+    {% endif %}
+{% else %}
+    <div class="message">
+    <h3>You don't seem to be following anyone yet</h3>
+    <p>Following other people and inviting your Facebook friends to participate will help make News Mixer a great community.</p>
+    <p>Invite your Facebook friends to join the site. Then follow their comments here in your profile or on your Facebook news feed.</p>
+    <p>You can also meet new people on News Mixer. Read comments on the site and click on the user's name or profile picture. From their profile page you can follow their comments. New comments appear in this feed. Don't worry, you can choose to stop following anyone at anytime.</p>
+    <h3><a href="#" class="jqModal">Invite them to join the conversation!</a></h3>
+    </div>
+{% endif %}
+</div>
+
+<div id="subscribers" class="panel" style="display:none">
+    {% if followers %}
+    <ul class="comments">
+    {% for fr in followers %}
+    <li{% if forloop.first %} class="first"{% endif %}>
+      {% show_medium_profile fr %}
+    </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <div class="message">
+    <h3>No one has followed you yet</h3>
+    <p>If other users see you regularly sharing interesting comments, questions and letters they will follow you. This won't change anything about your Facebook profile.</p>
+    <p>News Mixer is devoted to connecting to people in your community. If you meet a new friend or rediscover an old one, friend them on Facebook!</p>
+    </div>
+    {% endif %}
+</div>
+
+<div id="comments" class="panel" style="display:none;">
+    {% if my_comments %}
+    <ol class="comments">
+    {% for c in my_comments %}
+    <li{% if forloop.first %} class="first"{% endif %}>{% show_comment c %}</li>
+    {% endfor %}
+    </ol>
+    {% else %}
+    <div class="message">
+        <h3>You haven't said anything yet</h3>
+        <p>News Mixer is devoted to connecting to people in your community. The best way to meet new people is to start sharing. Read an article and try asking/answering questions, make a quip or write a thoughtful letter to the editor. </p>
+        <p>The more you participate the better the community will be.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

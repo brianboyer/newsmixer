@@ -1,0 +1,68 @@
+<script type="text/javascript">
+	bumble_refresh = 0
+	curdate = "{% now "Y-m-d H:i:s" %}";
+	bumble_limit = {{ limit }};
+	
+	function stopLive() {
+	  clearInterval(bumble_refresh);
+	  window.onblur = '';
+	};
+	function makeLive() {
+		clearInterval(bumble_refresh);
+        refreshBumbles();
+		bumble_refresh = setInterval("refreshBumbles()",12000);
+		window.onblur = stopLive;
+		window.onfocus = makeLive;
+	};
+	
+	$(document).ready(function(){
+		$('.bumble-form').ajaxForm({
+			dataType:'json',
+			beforeSubmit:function(){
+				stopLive();
+				return true;
+			},
+			success:pushToFacebookFeedAndInsert,
+			url:"/bumbles/create/remote"
+		});
+		makeLive();
+	});
+	
+	function pushToFacebookFeedAndInsert(data){
+		makeLive();
+		if(data['success']){
+			$('.bumble-form').resetForm();
+			$('.charsLeft').text('140');
+			var template_data = data['template_data'];
+			var template_bundle_id = data['template_bundle_id'];
+			template_data.verb_color = $('#bumbles').children(':first').find('.verb').css('backgroundColor');
+			feedTheFacebook(template_data,template_bundle_id);
+		} else {
+			alert(data['errors']);
+		}
+	}
+	
+	function refreshBumbles() {
+		$.post('/bumbles/',{'since':curdate,'show_headline':{{ show_headline }},'article':{{ article }}},function(data,textStatus){
+			newStuff = $("#bumbles").prepend(data['insert']);
+            if(data['insert'] != null){
+                $("#bumbles").find('#start-message').remove();
+                newStuff
+                    .children(':first')
+                    .css('backgroundColor','yellow')
+                    .animate({'backgroundColor':'#fdfcf7'},2000);
+            }
+			curdate = data['date'];
+		},"json");
+		if ( bumble_limit > 0 ){
+		  while ( $('#bumbles .bumble').length > bumble_limit )
+  		  $('#bumbles .bumble:last').remove();
+		}
+	}
+	
+	if ( $('.bumble-form textarea#id_message').length > 0 )
+  	$('.bumble-form textarea#id_message').maxlength({ 
+  		'feedback' : '.charsLeft',
+  		'useInput' : true
+  	});
+</script>

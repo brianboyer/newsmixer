@@ -1,0 +1,8 @@
+{% load facebook %}
+<div class="letter-simple{% cycle ' odd' ' even' %}">
+    <h5><a href="{{ letter.get_absolute_url }}">{{ letter.title }}</a>{% if letter.letter %}<span class="inre"> in reply to: <a href="{{ letter.letter.get_absolute_url }}">{{ letter.letter.title }}</a></span>{% endif %}</h5>
+    <div class="author">{% show_facebook_photo letter.user %}</div>
+    <p class="byline">by {{ letter.user.get_profile.full_name }}</p>
+    {{ letter.body|truncatewords:"40"|linebreaks }}
+    <p class="timesince">{{ letter.created|timesince }} ago</p>
+</div>

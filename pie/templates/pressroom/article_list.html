@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+{% load articles %}{% block title %}Articles archive, page {{ page }}{% endblock %}
+{% block filling %}
+<h3>The archives</h3>
+
+{% if object_list %}
+<div class="articles-and-letters">
+    {% for article in object_list %}
+        {% show_article article %}
+    {% endfor %}
+</div>
+{% else %}
+<p>No articles were found.</p>
+{% endif %}
+
+{% if is_paginated %}
+<div id="page-controls">
+    <p>{% if has_previous %}<a href="{% url pr-article-list previous %}">Previous</a> | {% endif %} Page {{ page }} of {{ pages }} {% if has_next %}| <a href="{% url pr-article-list next %}">Next</a>{% endif %}</p>
+</div>
+{% endif %}
+
+{% endblock %}

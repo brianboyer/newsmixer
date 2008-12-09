@@ -5,7 +5,7 @@
 {% if letter.letter %}{% if letter.article %}
 {% comment %}re: letter re:article{% endcomment %}
 <div class="feed-title letter">
-  {% show_facebook_name letter.user %} <a href="{{ letter.get_absolute_url }}">responded to a letter to the editor</a> about the article: {{ letter.article.headline }}.  <span class="time">{{ answer.created|timesince }} ago</span>
+  {% show_facebook_name letter.user %} <a href="{{ letter.get_absolute_url }}">responded to a letter to the editor</a> about the article: {{ letter.article.headline }}.  <span class="time">{{ letter.created|timesince }} ago</span>
 </div>
 <div class="feed-profile-pic letter">{% show_facebook_photo letter.user %}</div>
 <div class="feed-body letter">
@@ -22,7 +22,7 @@
 {% else %}
 {% comment %}re: letter{% endcomment %}
 <div class="feed-title letter">
-  {% show_facebook_name letter.user %} <a href="{{ letter.get_absolute_url }}">responded to a letter to the editor:</a> <a href="{{ letter.get_absolute_url }}">{{ letter.title }}</a>.  <span class="time">{{ answer.created|timesince }} ago</span>
+  {% show_facebook_name letter.user %} <a href="{{ letter.get_absolute_url }}">responded to a letter to the editor:</a> <a href="{{ letter.get_absolute_url }}">{{ letter.title }}</a>.  <span class="time">{{ letter.created|timesince }} ago</span>
 </div>
 <div class="feed-profile-pic letter">{% show_facebook_photo letter.user %}</div>
 <div class="feed-body letter">
@@ -39,7 +39,7 @@
 {% endif %}{% else %}{% if letter.article %}
 {% comment %}re:article{% endcomment %}
 <div class="feed-title letter">
-  {% show_facebook_name letter.user %} <a href="{{ letter.get_absolute_url }}">wrote a letter to the editor</a> in response to the article: {{ letter.article.headline }}.  <span class="time">{{ answer.created|timesince }} ago</span>
+  {% show_facebook_name letter.user %} <a href="{{ letter.get_absolute_url }}">wrote a letter to the editor</a> in response to the article: {{ letter.article.headline }}.  <span class="time">{{ letter.created|timesince }} ago</span>
 </div>
 <div class="feed-profile-pic letter">{% show_facebook_photo letter.user %}</div>
 <div class="feed-body letter">
@@ -56,7 +56,7 @@
 {% else %}
 {% comment %}stand alone{% endcomment %}
 <div class="feed-title letter">
-  {% show_facebook_name letter.user %} wrote a letter to the editor: <a href="{{ letter.get_absolute_url }}">{{ letter.title }}</a>.  <span class="time">{{ answer.created|timesince }} ago</span>
+  {% show_facebook_name letter.user %} wrote a letter to the editor: <a href="{{ letter.get_absolute_url }}">{{ letter.title }}</a>.  <span class="time">{{ letter.created|timesince }} ago</span>
 </div>
 <div class="feed-profile-pic letter">{% show_facebook_photo letter.user %}</div>
 <div class="feed-body letter">

@@ -1,0 +1,15 @@
+{% load facebook %}
+{% load bumbles %}
+
+<div class="bumbles" id="bumbles">
+{% if bumbles %}
+{% for bumble in bumbles %}
+  {% include "bumbles/bumble.html" %}
+{% endfor %}
+{% else %}
+<div id="start-message">
+<h4>Start the conversation.</h4>
+<p>What did you think about this article? Share what you think, feel, wonder, agree, disagree, love or hate. Your quips are limited to 140 characters, but you can quip as often as you like.</p>
+</div>
+{% endif %}
+</div>

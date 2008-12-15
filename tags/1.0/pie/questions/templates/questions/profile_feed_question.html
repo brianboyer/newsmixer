@@ -1,0 +1,11 @@
+{% load facebook %}
+
+<div class="question feed-title">{% show_facebook_name question.user %} <a href="{{ question.get_absolute_url }}">asked a question about the article</a>: {{ question.article.headline }}. <span class="time">{{ question.created|timesince }} ago</span></div>
+<div class="feed-profile-pic question">{% show_facebook_photo question.user %}</div>
+<div class="feed-body question">
+  <div class="primary-title">"{{ question.text|truncatewords:"50" }}"</div>
+  <br/>
+  <div class="secondary-title">{{ question.article.headline }}</div>
+  <div class="secondary-body">{{ question.article.body|truncatewords:"20"|linebreaks }}</div>
+  <div class="action-link"><a href="{{ answer.question.article.get_absolute_url }}">Read the article</a></div>
+</div>

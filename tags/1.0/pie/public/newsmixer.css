@@ -1,0 +1,396 @@
+/* jqModal base Styling courtesy of;
+	Brice Burgess <bhb@iceburg.net> */
+
+/* The Window's CSS z-index value is respected (takes priority). If none is supplied,
+	the Window's z-index value will be set to 3000 by default (via jqModal.js). */
+	
+.jqmWindow {
+    display: none;
+   
+    position: fixed;
+    top: 17%;
+    left: 50%;
+    
+    margin-left: -300px;
+    width: 600px;
+    
+    color: #333;
+
+}
+
+.jqmOverlay { background-color: #000; }
+
+/* Background iframe styling for IE6. Prevents ActiveX bleed-through (<select> form elements, etc.) */
+* iframe.jqm {position:absolute;top:0;left:0;z-index:-1;
+	width: expression(this.parentNode.offsetWidth+'px');
+	height: expression(this.parentNode.offsetHeight+'px');
+}
+
+/* Fixed posistioning emulation for IE6
+     Star selector used to hide definition from browsers other than IE6
+     For valid CSS, use a conditional include instead */
+* html .jqmWindow {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+
+
+/* base */
+html {margin:0;padding:0;font-family:Verdana, Arial, sans-serif;}
+p {font-family:Georgia,Garamond,serif;line-height:1.5em;}
+body {margin:0;padding:0;background-color:#fdfcf7;}
+input[type=submit],input[type=button] {font-size: 1em;}
+textarea {font-family:Verdana, Arial, sans-serif;}
+a img {border:0;}
+form {padding:0;margin:0;}
+a:link {color:#425e88;}
+a:hover {color:#2e2a2b;}
+a:visited {color:#611739;}
+a:visited:hover {color:#2e2a2b;}
+
+/* universal header and footer */
+#header {background-color:#9fa9c2;overflow:hidden;}
+#masthead {width:58em;margin:0 auto;overflow:hidden;}
+#masthead h1 a {display:block;width:384px;height:46px;background:url(/public/images/newsmixer/masthead.png) top left no-repeat;}
+#masthead h1 {margin:1.8em 1.2em 1.4em;padding:0;font-size:1em;}
+#masthead h1 span,
+#masthead h2 {display:none;}
+#primary-navigation {background-color:#727b95;overflow:hidden;}
+#primary-navigation ul {list-style:none;padding:0;width:58em;margin:0 auto;}
+#primary-navigation ul li {display:block;float:left;width:14.36em;border-right:.1em solid #fdfcf7;}
+#primary-navigation ul li.last {border:0;}
+#primary-navigation ul li a {text-decoration:none;display:block;padding:1em 1.2em;}
+#primary-navigation ul li a span {display:block;font-family:Verdana, Arial, sans-serif;;}
+#primary-navigation ul li a:hover {background-color:#4b5264;}
+#primary-navigation ul li a:hover .sub {color:white !important;}
+#primary-navigation ul li a .head {color:white;margin:0;padding:0;font-size:1.3em;font-weight:normal;}
+#primary-navigation ul li a .sub {color:black;margin:0;padding:0;font-size:0.75em;font-weight:normal;}
+#user-navigation {background-color:#e3e6ed;text-align:center;padding:0.4em 0;font-size:0.9em;}
+#you {float:right;text-align:right;margin-top:1.2em;overflow:hidden;line-height:1.5em;}
+#you img {float:right;vertical-align:top;margin-left:0.6em;}
+#you div {font-size:.8em;font-weight:bold;}
+#you div form {margin-top:.5em;}
+#footer {clear:left;width:58em;margin: 0 auto;padding-top:1em;}
+#footer hr {border:0;height:.2em;background-color:#AAA;}
+#footer p {font-size:0.7em;}
+#body {width:58em;margin:1px auto;}
+
+/* about pages */
+#welcome.about {width:18em;float:left;margin:0;text-align:left;}
+#welcome.about div ul {padding:0;margin:0;}
+#welcome.about div ul li {list-style:none;margin-bottom:1em;font-size:.9em;line-height:1.5em;}
+#about {margin-left:1.6em;float:left;width:38em;}
+#about p {margin-top:0;margin-bottom:1em;}
+#about h4 {margin:0 0 .5em 0;}
+#about h5 {margin:0 0 .2em 0;}
+#about h5.team-member {font-size:1.5em;font-weight:bold;color:#939497;
+    font-family:Georgia,Garamond,serif;
+}
+#about img {float:left;margin:.5em .5em .5em 0;}
+
+#privacy-policy h3 {text-align:center;}
+#privacy-policy ol li {font-family:Georgia,Garamond,serif;line-height:1.5em;margin-bottom:.7em;}
+
+/* homepage */
+/* body is 54em wide, newsfeed + conversation = 53em, with 1em to spare between */
+#newsfeed, .article-main {float:left;margin-right:1.6em;width:36em;padding:0 0.6em;}
+
+.article-main .article-info span {display:block;}
+
+#welcome {text-align:center;}
+#welcome p {font-size:1.1em;}       
+#welcome,
+#featured-comment {background:#d1cebb url(/public/images/newsmixer/bl-corner-fill.png) bottom left no-repeat;overflow:hidden;margin:0 -0.6em;padding:0;}
+#welcome .bottom-corner,
+#featured-comment .bottom-corner {background:url(/public/images/newsmixer/br-corner-fill.png) bottom right no-repeat;padding:1em 1em 1em;overflow:hidden;}
+#welcome h2,
+#featured-comment h2 {margin:0;}
+#featured-comment h3 {margin:0;font-size:.9em;font-weight:normal;}
+#featured-comment p.feature {font-size:1.5em;margin:0.2em 0 0.8em;line-height:1.2em;}
+#featured-comment p {font-size:1em;}
+#featured-comment p.inre,
+#featured-comment p.timesince,
+#featured-comment p.activity {margin:0.2em;font-size:.8em;}
+#featured-comment p#question {font-size:1em;}
+#featured-comment h4#letter_title {font-size:1.5em;margin:0.2em 0;}
+#featured-comment p#letter_body {font-size:1em;}
+
+.articles-and-letters div {margin-bottom:1em;}
+.articles-and-letters div h4 {margin:0;}
+.articles-and-letters div p {margin:0;}
+.articles-and-letters div p.byline,
+.article-main .article-info .author {font-size:0.7em;margin-top:0.2em;font-weight:bold;}
+.articles-and-letters div p.timesince,
+.article-main .article-info .date {font-size:0.8em;margin-top:0.5em;}
+.articles-and-letters div.letter {background-color:#f6f2e0;margin:0 -.5em 1em -.5em;padding:.5em;}
+.articles-and-letters div.letter h5 {font-size:1em;font-weight:bold;margin:0;}
+.articles-and-letters div.letter div.author {float:left; margin:.5em .5em 0 0;}
+.articles-and-letters div.letter p.inre {font-size:0.8em;}
+.articles-and-letters div p.activity {font-size:.8em;}
+
+#conversation, .sidebar {float:left;width:19em;overflow:hidden;margin-top:1.6em;}
+#featured-question {background-color:#d1cebb;background:#d1cebb url(/public/images/newsmixer/bl-corner-empty.png) bottom left no-repeat;margin-bottom:1.6em;}
+#featured-question p.inre {margin-bottom:0;}
+#featured-question p.feature {background:url(/public/images/newsmixer/start-quote.png) top left no-repeat;font-size:1.4em;margin:.2em 0 .2em 0;line-height:1em;text-indent:40px;min-height:20px;padding-top:10px;}
+#featured-question .inside {padding:0 0.4em 0.4em;background-color:#fdfcf7;margin:0 2px;overflow:hidden;}
+#featured-question .bottom-corner {background:url(/public/images/newsmixer/br-corner-empty.png) bottom right no-repeat;padding-bottom:19px;}
+#buzz,
+.article-bumbles {background:#d1cebb url(/public/images/newsmixer/bl-corner-fill.png) bottom left no-repeat;overflow:hidden;}
+.article-bumbles h4 {font-family:Georgia,Garamond,serif;line-height:1.5em;font-weight:normal;text-align:center;}
+.article-bumbles h4 form {margin-top:.5em;}
+#buzz h3,
+#featured-question h3,
+.article-bumbles h3 {margin:0;padding:.5em;font-size:0.8em;}
+#buzz .bottom-corner, 
+.article-bumbles .bottom-corner {background:url(/public/images/newsmixer/br-corner-fill.png) bottom right no-repeat;padding-bottom:25px;overflow:hidden;}
+#featured-question .inside,
+.article-bumbles .inside,
+#buzz .bumbles {margin:0 2px;overflow:hidden;background-color:#fdfcf7;border:0;padding:.4em;max-height:100%;}
+.timesince, .count, .activity, .date {color:#803660;}
+
+div.questions {}
+div.questions textarea, div.annotations textarea {display:block;}
+div.questions div.answers, div.annotations div.answers {margin-left:2em;}
+div.questions div.question-form, 
+div.questions div.answer-form, 
+div.annotations div.question-form, 
+div.annotations div.answer-form {margin-left:2em;}
+
+/* facebook connect button */
+form.connect-button input[type=button] {background:url(http://static.ak.fbcdn.net/images/fbconnect/login-buttons/connect_light_large_long.gif);border:0;height:25px;width:194px;cursor:pointer;}
+
+/* login page */
+#login {text-align:center;margin:2em 0 5em 0;}
+
+/* error page */
+#error-page {text-align:center;}
+#error-page p.credit {margin-top:.5em;}
+
+/* Q&A */
+div.jqmWindow h1 {text-align:center;margin:10px 0;}
+div.jqmWindow .header {background:#999;color:white;padding:4px 8px;font-weight:bold;}
+div.jqmWindow .header a {float:right;}
+div.jqmWindow .header a:link {float:right;color:white;}
+div.jqmWindow .header a:hover {float:right;color:#dfdfdf;}
+
+div.jqmWindow {border:.2em solid #425e88;}
+div.jqmWindow .tabs a {margin:0;}
+div.jqmWindow .tabs {background-color:#c9cedd;border:0;}
+div.jqmWindow .panel {padding:0;height:28em;overflow:auto;position:relative;border:0;}
+
+#article-body a.graf {display:block;position:relative;margin-left:-4em;padding-left:4em;}
+#article-body a.graf p {padding:0.5em;margin:0 -0.5em;}
+
+#article-body a.graf a.annotation-button.new {display:none;}
+#article-body a.graf a.annotation-button {font-family:Verdana, Arial, sans-serif;display:block;position:absolute;top:0;left:3em;top:-1em;cursor:pointer;}
+#article-body a.annotation-button .total {display:block;background:url(/public/images/number-balloon.png) top left no-repeat;width:31px;height:21px;padding:4px 4px 14px 4px;font-size:1em;text-align:center;margin-left:-15px;letter-spacing:-0.05em;}
+#article-body a.annotation-button .breakout {display:none;background:url(/public/images/large-balloon.png) top left no-repeat;padding:4px 3px 14px 3px;font-size:.8em;text-align:center;width:102px;height:42px;line-height:1.1em;margin-left:-46px;margin-top:-22px;letter-spacing:-0.05em;}
+#article-body a.annotation-button .new-breakout {background:url(/public/images/medium-balloon.png) top left no-repeat;padding:4px 3px 14px 3px;display:none;font-size:.8em;text-align:center;width:66px;height:30px;line-height:1.1em;margin-left:-31px;margin-top:-10px;letter-spacing:-0.05em;}
+
+#article-body a.selected p {background:#f6f2e0;}
+#article-body a.selected a.annotation-button .total {display:none !important;}
+#article-body a.selected a.annotation-button.new,
+#article-body a.selected a.annotation-button .breakout,
+#article-body a.selected a.annotation-button .new-breakout {display:block !important;}
+
+.article-questions .message {padding:1em;text-align:center;background:rgb(175,255,175);margin:0 !important;width:auto !important;}
+.article-questions .graf-info {padding:1em 2em;font-family:Georgia,Garamond,serif;}
+.article-questions .add-question-prompt {font-style:italic;}
+.article-questions .question-form {background:rgb(255,250,194);overflow:hidden;padding:2%;text-align:right;position:absolute;bottom:0;width:96%;}
+.article-questions .question-form textarea {width:96%;border:.1em solid rgb(255,244,80);font-size:1.6em;padding:.2em}
+.article-questions .question-form .prompt {float:left;font-size:4em;color:#999;font-weight:bold;margin-top:-0.2em;}
+.article-questions .question-form .notify {display:none;}
+.article-questions .question-form .body {overflow:hidden;}
+
+.article-questions .answer-form {background:rgb(255,253,232);padding:.4em;}
+.article-questions .answer-form textarea,
+.article-questions .answer-form input[type=text] {width:98%;border:.1em solid rgb(255,244,80);font-size:1em;padding:.2em}
+.article-questions .answer-form .prompt {float:left;font-size:3em;color:#999;font-weight:bold;margin-top:-0.2em;}
+.article-questions .answer-form .body {overflow:hidden;}
+
+.article-questions .question-form .submit,
+.article-questions .answer-form .submit {text-align:right;}
+
+.article-questions .answers {margin-bottom:.6em;}
+.article-questions .answer {background:rgb(255,253,232);border-top:.4em solid rgb(255,250,194);}
+.article-questions .answer p {margin: 0 0 .2em;}
+
+.article-questions .question {background:rgb(255,250,194);}
+.article-questions .question p {margin: 0 0 .2em;font-size:1.2em;}
+
+.article-questions .answer,
+.article-questions .question {position:relative;padding:.4em;overflow:hidden;}
+.article-questions .answer .prompt,
+.article-questions .question .prompt {float:left;font-size:3em;color:#999;font-weight:bold;margin-top:-0.2em;}
+.article-questions .answer .reference,
+.article-questions .question .actions {position:absolute;bottom:0;font-size:.8em;}
+.article-questions .answer div.text_and_ref,
+.article-questions .question .body {overflow:hidden;}
+
+/* bumbles */
+.article-bumbles #start-message {margin:1em .6em 0;}
+.article-bumbles #start-message h4 {text-align:center;font-weight:bold;font-size:1.2em;font-family:Verdana,Arial,sans-serif;}
+.article-bumbles .bumbles {overflow:auto;height:38em;margin:0;}
+.article-bumbles .bumbles .bumble {margin:.2em auto;padding:0;width:280px;}
+.article-bumbles .inside {padding:0;}
+.article-bumbles h4 {margin:0 .1em 1em;padding:0;}
+
+div.user-bumbles div.bumble p {display:none;}
+div.user-bumbles p {font-size: 0.9em;}
+
+.article-bumbles div.bumble,
+#buzz div.bumble {font-family:Verdana,Arial,sans-serif;margin-top:0.5em;font-size:0.8em;}
+.article-bumbles div.bumble p {font-family:Garamond,Georgia,serif;font-size:0.7em;}
+div.bumble span.photo {margin-right:0.5em;float:left;}
+div.bumble .created {display:block;text-align:right;color:#999;}
+
+div.bumble .message {overflow:hidden;}
+div.bumble .message .inre {font-size:0.8em;margin-top:.2em;display:block;}
+div.bumble .message .top-left {background:url(/public/images/balloon-tl.png) top left no-repeat;padding-left:19px;}
+div.bumble .message .top-right {background:url(/public/images/balloon-tr.png) top right no-repeat;}
+div.bumble .message .top {background:url(/public/images/balloon-t.png) top left repeat-x;margin-right:6px;height:6px;}
+div.bumble .message .right {background:url(/public/images/balloon-r.png) top right repeat-y;padding-right:6px;}
+div.bumble .message .center {background:url(/public/images/balloon-bg.png);min-height:45px;line-height:1.5em;padding-left:5px;}
+div.bumble .message .bottom-left {background:url(/public/images/balloon-bl.png) bottom left no-repeat;padding-left:6px;margin-left:13px;}
+div.bumble .message .bottom-right {background:url(/public/images/balloon-br.png) bottom right no-repeat;padding-right:6px;}
+div.bumble .message .bottom {background:url(/public/images/balloon-b.png) bottom left repeat-x;height:6px;}
+
+div.bumble input[type=button] {font-family:Garamond,Georgia,serif;display:block;margin-left:10em;margin-top:0.5em;float:left;text-transform:uppercase;font-size:0.7em;font-weight:bold;border:solid 0.2em green;background-color:white;color:black;}
+div.bumble form.offensive {display:none;}
+
+/* bumble coloring, used in bumbles list and on home page */
+span.verb {text-transform:uppercase;padding:0 0.2em;font-weight:bold;color:white;}
+
+form.bumble-form {margin:0.2em 0.5em;}
+form.bumble-form .count {float:left;font-size:0.8em;}
+form.bumble-form textarea {width:100%;font-size:1.2em;}
+form.bumble-form select option {color:white;}
+form.bumble-form .submit {text-align:right;}
+
+span.verb[title=thinks],
+form.bumble-form select option[value=thinks] {background-color: #079107;}
+span.verb[title=loves],
+form.bumble-form select option[value=loves] {background-color: #611739;}
+span.verb[title=feels],
+form.bumble-form select option[value=feels] {background-color: #9d6884;}
+span.verb[title=agrees],
+form.bumble-form select option[value=agrees] {background-color: #cb8337;}
+span.verb[title=disagrees],
+form.bumble-form select option[value=disagrees] {background-color: #6b6b6d;}
+span.verb[title=wonders],
+form.bumble-form select option[value=wonders] {background-color: #2a436a;}
+span.verb[title=hates],
+form.bumble-form select option[value=hates] {background-color: #2e2a2b;}
+
+/* Letters to the editor */
+.actions {margin-bottom:0.5em;}
+.actions form {display:inline;}
+
+.letters-message {margin:2em 0;}
+.letters-message h2 {background:url(/public/images/email_open.png) left no-repeat;text-indent:24px;margin:0;}
+.letters-message p {font-size:1.2em;margin:0.4em 0;}
+.letters-message div {margin-left:24px;margin-top:.5em;line-height:1.5em;font-size:0.8em;font-weight:bold;font-family:Garamond,Georgia,serif;}
+.letters-message div form {margin-top:.5em;}
+.article-letters {margin-bottom:2em;}
+
+.mini-profile {margin-right:.4em;max-width:5.2em;float:left;}
+.mini-profile .networks {font-size:.8em;}
+.mini-profile .networks ul {margin:0;padding:0;text-indent:0;list-style:none;}
+.mini-profile .networks li {margin:0;text-indent:0;list-style:none;}
+
+.medium-profile {overflow:hidden;margin:1em 0;}
+.medium-profile .profile-pic {float:left;margin:.4em .4em 0 0;}
+.medium-profile .profile-info {padding:.2em 0;}
+.medium-profile .profile-info .name {font-size:2em;}
+.medium-profile .profile-info form {margin-top:1em;margin-bottom:0.2em;}
+
+.letter .replies {margin:3em 0 0 0;}
+.letter .replies h3 {border-bottom:#425c88 1px solid;}
+.letter .display p.timesince {font-size:0.8em;margin:0;}
+.letter .display p {margin-top:0;}
+
+.editor-highlights {overflow:hidden;}
+.editor-highlights .letter-simple:first-child {margin-right:1em;}
+.editor-highlights .letter-simple {width:45%;float:left;}
+.editor-highlights .letter-simple.odd {background-color:transparent;}
+
+.letter-simple {margin:.2em 0;overflow:hidden;font-size:1em;}
+.letter-simple p {margin:0;}
+.letter-simple span,
+.letter .display span {display:block;}
+.letter-simple .body {overflow:hidden;}
+.letter-simple .profile-photo,
+.letter .display .profile-photo {margin-right:.2em;float:left;}
+.letter-simple.odd {background-color:#f6f2e0;margin:0 -.5em 1em -.5em;padding:.5em;}
+.letter-simple p.byline,
+.letter .display p.byline {font-size:0.8em;margin:0.2em 0 0;font-weight:bold;}
+.letter-simple p.timesince {font-size:0.8em;margin-top:0.5em;}
+.letter-simple h5,
+.letter .display h5 {font-size:1em;font-weight:bold;margin:0;}
+.letter-simple div.author,
+.letter .display div.author {float:left; margin:.5em .5em 0 0;}
+.letter-simple .inre,
+.letter .display .inre {font-weight:normal;}
+
+.narrow {width:32em;margin:0 auto;overflow:hidden;}
+
+/* Button section */
+.reply-button,.offensive-button,.new-letter-button,.subscribe-button,.unsubscribe-button {
+    background-color: #b4bbcf;border-right:solid 0.1em #9ea8c1;border-bottom:solid 0.1em #9ea8c1;
+    border-top:solid 0.1em #e3e6ee;border-left:solid 0.1em #e3e6ee;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.9em;color: #2e292a;text-align: center;text-decoration: none;padding:0.2em 0.4em;
+}
+.subscribe-button.disabled {
+    background-color:#c9cedd;color:#999;
+}
+a.reply-button:hover,a.offensive-button:hover,a.new-letter-button:hover,a.subscribe-button:hover,a.unsubscribe-button  {
+    background-color:#c9cedd;color:#6b6b6b;
+} 
+
+form#new-letter {padding:0 0 2em;}
+form#new-letter p input {font-size:1em;width:95%;}
+form#new-letter div textarea {font-size:1.2em;width:95%;height:20em;}
+form#new-letter ul.errorlist {color:red;}
+div#new-letter-errors {color:red;font-weight:bold;padding:0.5em;}
+
+/* Profile Page */
+.tabs, .panel {font-family:Verdana, Arial, sans-serif;font-size:.8em;overflow:hidden;position:relative;}
+.tabs {line-height:1em;font-size:1em;margin:0;padding:0;z-index:10;}
+.tabs a {background-color:#c9cedd;padding:.4em .8em;margin:0 .2em 0;display:block;float:left;text-decoration:none;color:#666;cursor:pointer;}
+.tabs a:hover {background-color:#e3e6ee;color:#565656;}
+.tabs a.close {float:right;}
+.tabs a.selected {background-color:#425e88;color:#FFF;}
+.facebookInvitesModal {top:1em;border:solid 10px #DDD;}
+
+.panel {border:.2em solid #425e88;z-index:1;padding:1em;background:#fdfcf7;}
+.panel .sidebar {float:right;width:150px;margin-left:1.2em;}
+.panel .sidebar h3 {margin:0 0 1em;}
+.panel .sidebar a {font-weight:bold;}
+.panel .comments {margin:0;padding:0;list-style:none;text-indent:0;overflow:hidden;}
+.panel .comments li {padding:1.2em 0;border-top:.1em solid #D8DFEA;overflow:hidden;}
+.panel .comments li.first {border:none;padding-top:0;}
+.panel .message {width:24em;margin:1em auto;font-size:1.2em;}
+
+.facebook-info .invite-button {margin-bottom:1.2em;}
+
+.comments .feed-body{margin:.4em 0 0 1em;padding:.4em;background-color:#f6f2e0;overflow:hidden;}
+.comments .feed-title{padding-left:18px;font-size:1.2em;}
+.comments .feed-title .time{color:#999;font-size:.9em;display:block;}
+.comments .feed-title.answer {background:url(/public/images/exclamation.png) left top no-repeat;}
+.comments .feed-title.question {background:url(/public/images/help.png) left top no-repeat;}
+.comments .feed-title.bumble {background:url(/public/images/user_comment.png) left top no-repeat;}
+.comments .feed-title.letter {background:url(/public/images/email_open.png) left top no-repeat;}
+.comments .feed-body .primary-title {font-size:1.4em;font-weight:bold;}
+.comments .feed-body .primary-body {font-size:1.2em;}
+.comments .feed-body .secondary-title {font-weight:bold;}
+.comments .feed-body p {margin-top:0;}
+.comments .feed-profile-pic {float:left;margin:.4em .4em 0 18px;}
+
+/* Feedback */
+.feedback input[type=text],
+.feedback textarea {font-size:1.4em;width: 99%;}
+.feedback label{font-weight:bold;color:#999;display:block; margin-bottom:.5em;}
+.contact{margin-bottom: 1.5em;}
+.contact .column{margin-bottom: 1em;}
+.feedback input[type=submit]{margin:.85em 0 0 0;font-size:2em;}

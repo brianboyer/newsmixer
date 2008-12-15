@@ -1,0 +1,17 @@
+
+{% extends "base.html" %}
+{% block title %}{{ flatpage.title }}{% endblock %}
+{% block filling %}
+<div id="welcome" class="about">
+    <div class="bottom-corner">
+        <ul id="about-navigation">
+            <li><a href="/about-this-site/">What you can do here<br/> and why we think it's useful</a></li>
+            <li><a href="/team-crunchberry">Who built News Mixer?</a></li>
+            <li><a href="/the-report/">What we learned</a></li>
+        </ul>
+    </div>
+</div>
+<div id="about">
+{{ flatpage.content }}
+</div>
+{% endblock %}

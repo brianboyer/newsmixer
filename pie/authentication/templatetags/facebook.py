@@ -34,7 +34,6 @@ def show_facebook_name(context,user):
         p = user
     else:
         p = user.get_profile()
-    p.setup_facebook(context['facebook'])
     return {'string':u'<a href="%s">%s</a>' % (p.get_absolute_url(),p.full_name)}
 
 @register.inclusion_tag('facebook/show_string.html',takes_context=True)
@@ -43,7 +42,6 @@ def show_facebook_first_name(context,user):
         p = user
     else:
         p = user.get_profile()
-    p.setup_facebook(context['facebook'])
     return {'string':u'<a href="%s">%s</a>' % (p.get_absolute_url(),p.first_name)}
     
 @register.inclusion_tag('facebook/show_string.html',takes_context=True)
@@ -52,7 +50,6 @@ def show_facebook_possesive(context,user):
         p = user
     else:
         p = user.get_profile()
-    p.setup_facebook(context['facebook'])
     return {'string':u'<fb:name uid="%i" possessive="true" linked="false"></fb:name>' % p.facebook_id}
 
 @register.inclusion_tag('facebook/show_string.html',takes_context=True)
@@ -61,7 +58,6 @@ def show_facebook_greeting(context,user):
         p = user
     else:
         p = user.get_profile()
-    p.setup_facebook(context['facebook'])
     return {'string':u'Hello, <a href="%s">%s</a>!' % (p.get_absolute_url(),p.first_name)}
 
 @register.inclusion_tag('facebook/show_string.html',takes_context=True)
@@ -70,7 +66,6 @@ def show_facebook_status(context,user):
         p = user
     else:
         p = user.get_profile()
-    p.setup_facebook(context['facebook'])
     return {'string':p.status}
 
 @register.inclusion_tag('facebook/show_string.html',takes_context=True)
@@ -79,7 +74,6 @@ def show_facebook_photo(context,user):
         p = user
     else:
         p = user.get_profile()
-    p.setup_facebook(context['facebook'])
     return {'string':u'<a href="%s"><img src="%s" alt="%s"/></a>' % (p.get_absolute_url(), p.picture_url, p.full_name)}
 
 @register.inclusion_tag('facebook/display.html',takes_context=True)
@@ -88,7 +82,6 @@ def show_facebook_info(context,user):
         p = user
     else:
         p = user.get_profile()
-    p.setup_facebook(context['facebook'])
     return {'profile_url':p.get_absolute_url(), 'picture_url':p.picture_url, 'full_name':p.full_name,'networks':p.networks}
 
 @register.inclusion_tag('facebook/feed_script.html',takes_context=True)

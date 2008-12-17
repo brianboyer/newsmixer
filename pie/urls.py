@@ -38,7 +38,7 @@ urlpatterns = patterns('',
     
     (r'^admin/(.*)', admin.site.root),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    (r'^talk-to-us/', include('contact_form.urls')),
+    (r'^contact/', include('contact_form.urls')),
     (r'',include('pressroom.urls')),
     
     (r'^public/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_DOC_ROOT}),

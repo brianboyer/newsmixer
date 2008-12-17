@@ -33,7 +33,7 @@ class FailMiddleware(object):
             logout(request)
             request.facebook.session_key = None
             request.facebook.uid = None
-            return render_to_response('500.html')
+            #return render_to_response('500.html')
         except Exception, ex:
             warnings.warn(u'FailMiddleware, ironically, failed: ' + unicode(ex))
             logging.exception('FailMiddleware, ironically, failed')

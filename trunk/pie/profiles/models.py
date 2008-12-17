@@ -31,18 +31,10 @@ from pie.bumbles.models import Bumble
 from pie.questions.models import Question,Answer
 
 FACEBOOK_FIELDS = ['uid,name,first_name,pic_square_with_logo,affiliations,status']
-DUMMY_FACEBOOK_INFO = {
-    'uid':0,
-    'name':'John Q. Public',
-    'first_name':'John',
-    'pic_square_with_logo':'/public/images/anon.jpg',
-    'affiliations':[],
-    'status':'',
-}
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
-    facebook_id = models.IntegerField(unique=True)
+    facebook_id = models.IntegerField()
     following = models.ManyToManyField('self',symmetrical=False,related_name='followers',blank=True)
     __facebook_info = None
     __facebook_obj = None
@@ -75,17 +67,19 @@ class UserProfile(models.Model):
             return ""
     status = property(__get_status)
     
-    def get_friends_profiles(self,limit=50):
+    def get_friends_profiles(self):
         '''returns primed profile objects for this persons friends'''
         if not self.__friends_profiles:
             friends = []
             friends_info = []
-            friend_ids = self.__get_facebook_friends()[:limit]
+            friend_ids = self.__facebook_obj.friends.getAppUsers()
             if len(friend_ids) > 0:
-                friends_info = self.__get_facebook_info(friends_ids)
+                friends_info = self.__facebook_obj.users.getInfo(friend_ids,FACEBOOK_FIELDS)
             for f in friends_info:
+                cache.add('fb_user_info_%s_%s' % (self.__facebook_obj.uid,f['uid']), f,3600)
                 try:
-                    friends.append(UserProfile.objects.get(facebook_id=f['uid']))
+                    cur_profile = UserProfile.objects.get(user=User.objects.get(username=f['uid']))
+                    friends.append(cur_profile)
                 except (User.DoesNotExist, UserProfile.DoesNotExist):
                     pass
             self.__friends_profiles = friends
@@ -114,10 +108,27 @@ class UserProfile(models.Model):
     def __init__(self, *args, **kwargs):
         super(UserProfile, self).__init__(*args, **kwargs)
         try:
-            self.__facebook_info = self.__get_facebook_info([self.facebook_id])[0]
+            self.__facebook_obj = get_facebook_client()
+            if self.__facebook_obj.uid is None:
+                fb_info_cache = cache.get('fb_user_info_%s' % self.facebook_id)
+                if fb_info_cache:
+                    self.__facebook_info = fb_info_cache
+                else:
+                    self.__facebook_info = self.__facebook_obj.users.getInfo([self.facebook_id], FACEBOOK_FIELDS)[0]
+                    cache.set('fb_user_info_%s' % self.facebook_id,self.__facebook_info,3600)
+            else:
+                fb_info_cache = cache.get('fb_user_info_%s_%s' % (self.__facebook_obj.uid,self.facebook_id))
+                if fb_info_cache:
+                    self.__facebook_info = fb_info_cache
+                else:
+                    self.__facebook_info = self.__facebook_obj.users.getInfo([self.facebook_id], FACEBOOK_FIELDS)[0]
+                    cache.set('fb_user_info_%s_%s' % (self.__facebook_obj.uid,self.facebook_id),self.__facebook_info,3600)
        
         except (ImproperlyConfigured), ex:
             logging.warn(ex)
+
+    def setup_facebook(self,fb_obj=None,fb_info=None):
+        pass
         
     def get_activity(self):
         return {
@@ -126,54 +137,6 @@ class UserProfile(models.Model):
             Question:self.user.question_set.count(),
             Answer:self.user.answer_set.count(),
         }
-
-    def __get_facebook_friends(self):
-        self.__facebook_obj = get_facebook_client()
-        if self.__facebook_obj.uid is None:
-            return []
-        
-        cache_key = 'fb_friends_%s' % (self.__facebook_obj.uid)
-    
-        fb_info_cache = cache.get(cache_key)
-        if fb_info_cache:
-            friends = fb_info_cache
-        else:
-            friends = self.__facebook_obj.friends.getAppUsers()
-            cache.set(self.__friends_ids,tmp,1800)
-        
-        return friends        
-
-    def __get_facebook_info(self,fbids):
-        self.__facebook_obj = get_facebook_client()
-        ret = []
-        ids_to_get = []
-        for id in fbids:
-            if id = 0:
-                ret.append(DUMMY_FACEBOOK_PROFILE)
-            
-            if self.__facebook_obj.uid is None:
-                cache_key = 'fb_user_info_%s' % id
-            else:
-                cache_key = 'fb_user_info_%s_%s' % (self.__facebook_obj.uid,id)
-        
-            fb_info_cache = cache.get(cache_key)
-            if fb_info_cache:
-                ret.append(fb_info_cache)
-            else:
-                ids_to_get.append(id)
-        
-        if len(ids_to_get) > 0:
-            tmp_info = self.__facebook_obj.users.getInfo([self.facebook_id], FACEBOOK_FIELDS)
-            ret.extend(tmp_info)
-            for info in tmp_info:
-                if self.__facebook_obj.uid is None:
-                    cache_key = 'fb_user_info_%s' % id
-                else:
-                    cache_key = 'fb_user_info_%s_%s' % (self.__facebook_obj.uid,info['uid'])
-
-                cache.set(cache_key,info,1800)
-                
-        return ret
 
     def get_absolute_url(self):
         return "/profiles/%i/" % (self.id)

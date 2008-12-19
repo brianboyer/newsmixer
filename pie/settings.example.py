@@ -27,15 +27,6 @@ ADMINS = (
 DEFAULT_FROM_EMAIL = "website@example.com"
 MANAGERS = ADMINS
 
-# Logging helps debugging
-#import logging
-#logging.basicConfig(
-#    level = logging.INFO,
-#    format = '%(asctime)s %(levelname)s %(message)s',
-#    filename = '/tmp/newsmixer.log',
-#    filemode = 'w'
-#)
-
 ROOT_URL = 'http://example.com'
 PIE_ROOT = '/var/www/pie'
 STATIC_DOC_ROOT = PIE_ROOT + '/public'
@@ -43,6 +34,15 @@ MEDIA_ROOT = PIE_ROOT + '/public/'
 TEMPLATE_DIRS = (
     PIE_ROOT + '/templates',
 )
+
+# Logging helps debugging
+#import logging
+#logging.basicConfig(
+#    level = logging.INFO,
+#    format = '%(asctime)s %(levelname)s %(message)s',
+#    filename = PIE_ROOT + '/newsmixer.log',
+#    filemode = 'a'
+#)
 
 DATABASE_ENGINE = ''           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = ''             # Or path to database file if using sqlite3.

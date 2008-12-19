@@ -22,19 +22,30 @@ import logging
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
-from facebook import Facebook
+from facebook.djangofb import Facebook,get_facebook_client
 from profiles.models import UserProfile
 
 class FacebookBackend:
     
     def authenticate(self, request=None):
-        fb = Facebook(settings.FACEBOOK_API_KEY, settings.FACEBOOK_SECRET_KEY)
-        fb.check_session(request)
+        fb = get_facebook_client()
         if fb.uid:
-            facebook_info = fb.users.getInfo([fb.uid], ['uid', 'proxied_email'])[0]
-            my_user = self.__get_or_create_user(facebook_info)
-            return my_user
+            try:
+                logging.debug("Checking for user %s..." % fb.uid)
+                user = User.objects.get(username=fb.uid)
+            except User.DoesNotExist:
+                logging.debug("User didn't exist, adding...")
+                profile = UserProfile(facebook_id=fb.uid)
+                logging.debug("Got profile from facebook...")
+                user = User(username=fb.uid, password=self.__random_password(),email=profile.email)
+                user.save()
+                logging.debug("Added User account...")
+                profile.user = user
+                profile.save()
+                logging.info("Added user and profile for %s!" % fb.uid)
+            return user
         else:
+            logging.debug("Invalid Facebook login for %s" % fb.__dict__)
             return None
         
     def get_user(self, user_id):
@@ -42,18 +53,6 @@ class FacebookBackend:
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
-
-    def __get_or_create_user(self, facebook_info):
-        try:
-            user = User.objects.get(username=facebook_info['uid'])
-        except User.DoesNotExist:
-            #TODO: need a transaction here
-            user = User(username=facebook_info['uid'], password=self.__random_password())
-            user.email = facebook_info['proxied_email']
-            user.save()
-            profile = UserProfile(user=user,facebook_id=facebook_info['uid'])
-            profile.save()
-        return user
     
     def __random_password(self):
         return sha.new(str(random.random())).hexdigest()[:8]

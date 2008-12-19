@@ -20,6 +20,7 @@
 import logging
 import warnings
 from datetime import datetime
+from django.core.urlresolvers import reverse
 from django.contrib.auth import logout
 from django.conf import settings
 from facebook import Facebook,FacebookError
@@ -32,37 +33,34 @@ class FacebookConnectMiddleware(object):
     def process_request(self,request):
         """process incoming request"""
         try:
-            request.profile = None
-            if request.user.is_authenticated():
-                bona_fide = request.facebook.check_session(request)
-                request.profile = request.user.get_profile()
-                if not bona_fide and not request.user.is_superuser:
-                    logout(request)
+            bona_fide = request.facebook.check_session(request)
+            if request.user.is_authenticated() and not bona_fide and not request.user.is_superuser:
+                logout(request)
         except Exception, ex:
             #Because this is a middleware, we can't assume the errors will be caught elsewhere.
+            logout(request)
+            request.facebook.session_key = None
+            request.facebook.uid = None
             warnings.warn(u'FBC Middleware failed: ' + unicode(ex))
-            logging.exception('FBC Middleware: something went terribly wrong')        
+            logging.exception('FBC Middleware: something went terribly wrong')
    
-# this doesnt really do much anymore
-# prob can kill it?
-# keep around to make debugging easier?
-# the FailMiddleware deals with errors now
-   
-#    def process_exception(self,request,exception):
-#        my_ex = exception
-#        if type(exception) == TemplateSyntaxError:
-#            if getattr(exception,'exc_info',False):
-#                my_ex = exception.exc_info[1]
+    def process_exception(self,request,exception):
+        my_ex = exception
+        if type(exception) == TemplateSyntaxError:
+            if getattr(exception,'exc_info',False):
+                my_ex = exception.exc_info[1]
 
-#        if type(my_ex) == FacebookError:
-#            if getattr(my_ex,'code',None) == 102:
-#                logging.exception('FBC Middleware: 102, session')
-#            else:
-#                logging.exception('FBC Middleware: ???, unknown')
-#        elif type(my_ex) == URLError:
-#            if getattr(my_ex,'code',None) == 104:
-#                logging.exception('FBC Middleware: 104, connection reset?')
-#            elif getattr(my_ex,'code',None) == -2:
-#                logging.exception('FBC Middleware: 102, name or service not known')
-#        else:
-#            logging.exception('FBC Middleware: oh, the horror')
+        if type(my_ex) == FacebookError:
+            if my_ex.code is 102:
+                logout(request)
+                request.facebook.session_key = None
+                request.facebook.uid = None
+                logging.exception('FBC Middleware: 102, session')
+                return HttpResponseRedirect(reverse('authentication.views.facebook_login'))
+        elif type(my_ex) == URLError:
+            if my_ex.reason is 104:
+                logging.exception('FBC Middleware: 104, connection reset?')
+            elif my_ex.reason is 102:
+                logging.exception('FBC Middleware: 102, name or service not known')
+        else:
+            logging.exception('FBC Middleware: oh, the horror')

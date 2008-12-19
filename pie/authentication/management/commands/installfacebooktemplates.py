@@ -42,14 +42,14 @@ class Command(BaseCommand):
             short_template = bundle[1][1]
             full_template = bundle[1][2]
             action_template = bundle[1][3]
-            print "Loading '%s' bundle ..." % (name.capitalize())
             response = facebook_obj.feed.registerTemplateBundle(one_line_template,short_template,full_template,action_template)
             try:
-                print "Replacing old '%s' bundle ..." % (name.capitalize())
                 template = FacebookTemplate.objects.get(name=name)
                 #facebook_obj.feed.deactivateTemplateBundleByID(template.template_bundle_id)
+                print "Replacing old '%s' bundle ..." % (name.capitalize())
             except FacebookTemplate.DoesNotExist:
                 template = FacebookTemplate(name=name)
+                print "Loading '%s' bundle ..." % (name.capitalize())
             template.template_bundle_id = response
             template.save()
         

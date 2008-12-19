@@ -103,7 +103,7 @@ class UserProfile(models.Model):
         friends = []
         friends_info = []
         try:
-            friends_ids = self.__get_facebook_friends()[:limit]
+            friends_ids = self.__get_facebook_friends()#[:limit]
         except (FacebookError,URLError), ex:
             logging.exception("Facebook Fail getting friends")
             friends_ids = []

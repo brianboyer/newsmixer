@@ -39,7 +39,7 @@ def get_bumbles(request):
     """ajax request for more bumbles"""
     if request.method == "POST":
         i = None;
-        if int(request.POST['article']) > 0:
+        if int(getattr(request.POST,'article',0)) > 0:
             recent_bumbles = Bumble.objects.filter(created__gt=request.POST['since'],article=Article.objects.get(pk=request.POST['article'])).order_by('-created')
         else:
             recent_bumbles = Bumble.objects.filter(created__gt=request.POST['since']).order_by('-created')

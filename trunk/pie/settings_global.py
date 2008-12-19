@@ -69,7 +69,6 @@ MIDDLEWARE_CLASSES = (
     'pie.authentication.middleware.FacebookConnectMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'djangodblog.middleware.DBLogMiddleware',
-    'pie.middleware.FailMiddleware',
 )
 
 ROOT_URLCONF = 'pie.urls'
@@ -113,3 +112,10 @@ SEARCH_BACKEND = "search.backends.simple"
 
 #django-contact-form
 AKISMET_API_KEY = ""
+
+#Cache facebook info for x seconds
+FACEBOOK_CACHE_TIMEOUT = 1800
+
+#setting this to true will cause facebook to fail randomly
+#only for the masochistic
+RANDOM_FACEBOOK_FAIL = False

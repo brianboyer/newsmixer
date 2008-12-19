@@ -98,7 +98,7 @@ def show_connect_button(context,javascript_friendly=False):
     req = context['request']
     #this happens if login_required decorator sent us to the login page
     if req.path.startswith('/accounts/login'):
-        next = req.GET['next']
+        next = getattr(req.GET,'next','')
     else:
         next = context.get('next',req.path)
     return {'next':next,'javascript_friendly':javascript_friendly}

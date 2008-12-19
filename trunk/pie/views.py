@@ -39,8 +39,8 @@ def index(request):
     
     featured_question = get_featured_question()
     featured_comment = None
-    if request.user.is_authenticated():
-        featured_comment = get_top_recent_comment(request.profile.get_friends_profiles())
+    if request.user.is_authenticated() and request.user.get_profile():
+        featured_comment = get_top_recent_comment(request.user.get_profile().get_friends_profiles())
   
     return render_to_response(
         "index.html",

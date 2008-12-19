@@ -64,37 +64,6 @@ def show_bumbles_script(limit=0,show_headline='false',article=None):
     else:
         artid=0
     return {'limit':limit,'show_headline':show_headline,'article':artid}
-
-@register.filter
-def long_ago(value):
-    """prints human-readable how long ago"""
-    tdelta = datetime.now()-value
-    mins = tdelta.seconds/60
-    hours = tdelta.seconds/3600
-    weeks = tdelta.days/7
-    months = tdelta.days/30
-    if tdelta.seconds <= 0:
-        return "Just added"
-    elif tdelta.seconds == 1:
-        return "%s second ago" % tdelta.seconds
-    elif mins < 1:
-        return "%s seconds ago" % tdelta.seconds
-    elif mins == 1:
-        return "%s minute ago" % mins
-    elif hours < 1:
-        return "%s minutes ago" % mins
-    elif hours == 1:
-        return "%s hour ago" % hours
-    elif tdelta.days < 2:
-        return "%s hours ago" % hours
-    elif weeks < 1:
-        return "%s days ago" % tdelta.days
-    elif weeks == 1:
-        return "%s week ago" % weeks
-    elif months == 1:
-        return "%s month ago" % months
-    else:
-        return "%s months ago" % months
     
 from django.utils.safestring import mark_safe
 

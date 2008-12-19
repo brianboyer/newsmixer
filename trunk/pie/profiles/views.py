@@ -79,7 +79,7 @@ def personal(request):
 def detail(request,profile_id):
     """show the public profile screen to another user or anonymous"""
     profile = UserProfile.objects.get(pk=profile_id)
-    if profile == request.profile:
+    if request.user.is_authenticated() and profile.id == request.user.get_profile().id:
         return HttpResponseRedirect('/profiles/')
     template_dict = {
         'comments':  profile.get_recent_comments(),
@@ -88,13 +88,15 @@ def detail(request,profile_id):
         'profile':   profile,
     }
     return render_to_response('profiles/public_profile.html', template_dict, context_instance=RequestContext(request))
-    
+
+@login_required
 def follow(request,profile_id):
     if request.method == "POST":
-        request.profile.following.add(UserProfile.objects.get(pk=profile_id))
+        request.user.get_profile().following.add(UserProfile.objects.get(pk=profile_id))
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
     
+@login_required
 def unfollow(request,profile_id):
     if request.method == "POST":
-        request.profile.following.remove(UserProfile.objects.get(pk=profile_id))
+        request.user.get_profile().following.remove(UserProfile.objects.get(pk=profile_id))
     return HttpResponseRedirect(request.META['HTTP_REFERER'])

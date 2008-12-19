@@ -17,23 +17,23 @@
 #You should have received a copy of the GNU General Public License
 #along with Crunchberry Pie.  If not, see <http://www.gnu.org/licenses/>.
 
-import logging
-import warnings
-from django.contrib.auth import logout
-from django.shortcuts import render_to_response
+from django.conf import settings
+from django.core.management import BaseCommand
+from django.core.exceptions import ImproperlyConfigured
+from django.contrib.auth.models import User
+from pie.profiles.models import UserProfile
 
-class FailMiddleware(object):
-    """Middlware to clean up when the fit hits the shan"""
-    
-    def process_exception(self,request,exception):
-        try:
-            warnings.warn('Fail. ' + unicode(exception))
-            logging.exception('Fail.')
-            #logout flushes session and removes user from the request object
-            logout(request)
-            request.facebook.session_key = None
-            request.facebook.uid = None
-            #return render_to_response('500.html')
-        except Exception, ex:
-            warnings.warn(u'FailMiddleware, ironically, failed: ' + unicode(ex))
-            logging.exception('FailMiddleware, ironically, failed')
+class Command(BaseCommand):
+    def handle(self,*args,**options):
+        """this command will check for messed user accounts"""
+        for user in User.objects.all():
+            try:
+                p = user.get_profile()
+                print "User #%s OK" % user.id
+            except (UserProfile.DoesNotExist):
+                profile = UserProfile(user=user,facebook_id=user.username)
+                profile.save()
+                print "Fixed User #%s" % user.id
+
+        
+        

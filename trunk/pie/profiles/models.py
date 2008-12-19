@@ -102,11 +102,11 @@ class UserProfile(models.Model):
         '''returns primed profile objects for this persons friends'''
         friends = []
         friends_info = []
+        friends_ids = []
         try:
-            friends_ids = self.__get_facebook_friends()#[:limit]
+            friends_ids = self.__get_facebook_friends()
         except (FacebookError,URLError), ex:
             logging.exception("Facebook Fail getting friends")
-            friends_ids = []
         logging.debug("Friends of %s %s" % (self.facebook_id,friends_ids))
         if len(friends_ids) > 0:
             #this will cache all the friends in one api call
@@ -148,7 +148,7 @@ class UserProfile(models.Model):
 
     def __get_facebook_friends(self):
         _facebook_obj = get_facebook_client()
-        
+        friends = []
         cache_key = 'fb_friends_%s' % (self.facebook_id)
     
         fb_info_cache = cache.get(cache_key)

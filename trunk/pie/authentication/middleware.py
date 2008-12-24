@@ -41,7 +41,7 @@ class FacebookConnectMiddleware(object):
             logout(request)
             request.facebook.session_key = None
             request.facebook.uid = None
-            warnings.warn(u'FBC Middleware failed: ' + unicode(ex))
+            warnings.warn(u'FBC Middleware failed: %s' % ex)
             logging.exception('FBC Middleware: something went terribly wrong')
    
     def process_exception(self,request,exception):
@@ -55,12 +55,10 @@ class FacebookConnectMiddleware(object):
                 logout(request)
                 request.facebook.session_key = None
                 request.facebook.uid = None
-                logging.exception('FBC Middleware: 102, session')
+                logging.error('FBC Middleware: 102, session')
                 return HttpResponseRedirect(reverse('authentication.views.facebook_login'))
         elif type(my_ex) == URLError:
             if my_ex.reason is 104:
-                logging.exception('FBC Middleware: 104, connection reset?')
+                logging.error('FBC Middleware: 104, connection reset?')
             elif my_ex.reason is 102:
-                logging.exception('FBC Middleware: 102, name or service not known')
-        else:
-            logging.exception('FBC Middleware: oh, the horror')
+                logging.error('FBC Middleware: 102, name or service not known')

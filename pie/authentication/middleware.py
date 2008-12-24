@@ -34,8 +34,14 @@ class FacebookConnectMiddleware(object):
         """process incoming request"""
         try:
             bona_fide = request.facebook.check_session(request)
-            if request.user.is_authenticated() and not bona_fide and not request.user.is_superuser:
-                logout(request)
+            if request.user.is_authenticated():
+                cur_user = request.facebook.users.getLoggedInUser()
+                logging.debug("Bona Fide: %s Logged in: %s FB Obj: %s" % (bona_fide,cur_user,request.facebook.uid))
+                if not bona_fide or int(cur_user) != int(request.facebook.uid):
+                    logging.debug("DIE DIE DIE")
+                    logout(request)
+                    request.facebook.session_key = None
+                    request.facebook.uid = None
         except Exception, ex:
             #Because this is a middleware, we can't assume the errors will be caught elsewhere.
             logout(request)

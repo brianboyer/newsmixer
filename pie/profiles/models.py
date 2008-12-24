@@ -205,12 +205,16 @@ class UserProfile(models.Model):
 
     def __configure_me(self):
         try:
+            logging.debug("FBID: '%s' profile: '%s' user: '%s'" % (self.facebook_id,self.id,self.user_id))
             if self.__facebook_info == DUMMY_FACEBOOK_INFO or not self.__facebook_info:
                 self.__facebook_info = self.__get_facebook_info([self.facebook_id])[0]
         except (ImproperlyConfigured), ex:
             logging.exception('Facebook not setup')
         except (FacebookError,URLError), ex:
             logging.exception('Facebook Fail loading profile')
+            self.__facebook_info = DUMMY_FACEBOOK_INFO
+        except (IndexError), ex:
+            logging.error("Couldn't retrieve FB info for FBID: '%s' profile: '%s' user: '%s'" % (self.facebook_id,self.id,self.user_id))
             self.__facebook_info = DUMMY_FACEBOOK_INFO
 
     def get_absolute_url(self):

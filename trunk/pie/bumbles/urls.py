@@ -32,4 +32,5 @@ urlpatterns = patterns('',
     (r'^create$', 'bumbles.views.create'),
     (r'^create/(?P<option>\w+)$', 'bumbles.views.create'),
     (r'^flag_as_offensive/(?P<bumble_id>\d+)/$', 'bumbles.views.flag_as_offensive'),
+    (r'^widget$', 'bumbles.views.widget'),
 )

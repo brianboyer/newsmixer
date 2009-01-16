@@ -115,3 +115,10 @@ def flag_as_offensive(request,bumble_id):
         return HttpResponseRedirect(b.get_absolute_url())
     else:
         raise Http404
+    
+def widget(request):
+    return render_to_response(
+        "bumbles/widget.html",
+        {},
+        context_instance=RequestContext(request)
+    )

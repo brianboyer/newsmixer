@@ -1,0 +1,68 @@
+{% load letters %}
+{% load facebook %}
+{% load humanize %}
+
+{% if letter.letter %}{% if letter.article %}
+{% comment %}re: letter re:article{% endcomment %}
+<div class="feed-title letter">
+  {% show_facebook_name letter.user %} <a href="{{ letter.get_absolute_url }}">responded to a letter to the editor</a> about the article: {{ letter.article.headline }}.  <span class="time">{{ letter.created|timesince }} ago</span>
+</div>
+<div class="feed-profile-pic letter">{% show_facebook_photo letter.user %}</div>
+<div class="feed-body letter">
+  <div>{% show_facebook_name letter.user %} wrote:</div>
+  <div class="primary-title">{{ letter.title }}</div>
+  <div class="primary-body">{{ letter.body|truncatewords:"50"|linebreaks }}</div>
+  <div>In response to {% show_facebook_possesive letter.letter.user %} letter on the article "{{ letter.article.headline }}":</div>
+  <div class="secondary-title">{{ letter.letter.title }}</div>
+  <div class="secondary-body">{{ letter.letter.body|truncatewords:"20"|linebreaks }}</div>
+
+  <div class="action-link"><a href="{{ letter.get_absolute_url }}">Read {% show_facebook_possesive letter.user %} letter</a></div>
+</div>
+
+{% else %}
+{% comment %}re: letter{% endcomment %}
+<div class="feed-title letter">
+  {% show_facebook_name letter.user %} <a href="{{ letter.get_absolute_url }}">responded to a letter to the editor:</a> <a href="{{ letter.get_absolute_url }}">{{ letter.title }}</a>.  <span class="time">{{ letter.created|timesince }} ago</span>
+</div>
+<div class="feed-profile-pic letter">{% show_facebook_photo letter.user %}</div>
+<div class="feed-body letter">
+  <div>{% show_facebook_name letter.user %} wrote:</div>
+  <div class="primary-title">{{ letter.title }}</div>
+  <div class="primary-body">{{ letter.body|truncatewords:"50"|linebreaks }}</div>
+  <div>In response to {% show_facebook_possesive letter.letter.user %} letter:</div>
+  <div class="secondary-title">{{ letter.letter.headline }}</div>
+  <div class="secondary-body">{{ letter.letter.body|truncatewords:"20"|linebreaks }}</div>
+
+  <div class="action-link"><a href="{{ letter.get_absolute_url }}">Read {% show_facebook_possesive letter.user %} letter</a></div>
+</div>
+
+{% endif %}{% else %}{% if letter.article %}
+{% comment %}re:article{% endcomment %}
+<div class="feed-title letter">
+  {% show_facebook_name letter.user %} <a href="{{ letter.get_absolute_url }}">wrote a letter to the editor</a> in response to the article: {{ letter.article.headline }}.  <span class="time">{{ letter.created|timesince }} ago</span>
+</div>
+<div class="feed-profile-pic letter">{% show_facebook_photo letter.user %}</div>
+<div class="feed-body letter">
+  <div>{% show_facebook_name letter.user %} wrote:</div>
+  <div class="primary-title">{{ letter.title }}</div>
+  <div class="primary-body">{{ letter.body|truncatewords:"50"|linebreaks }}</div>
+  <div>In response to the article:</div>
+  <div class="secondary-title">{{ letter.article.headline }}</div>
+  <div class="secondary-body">{{ letter.article.body|truncatewords:"20"|linebreaks }}</div>
+
+  <div class="action-link"><a href="{{ letter.get_absolute_url }}">Read {% show_facebook_possesive letter.user %} letter</a></div>
+</div>
+
+{% else %}
+{% comment %}stand alone{% endcomment %}
+<div class="feed-title letter">
+  {% show_facebook_name letter.user %} wrote a letter to the editor: <a href="{{ letter.get_absolute_url }}">{{ letter.title }}</a>.  <span class="time">{{ letter.created|timesince }} ago</span>
+</div>
+<div class="feed-profile-pic letter">{% show_facebook_photo letter.user %}</div>
+<div class="feed-body letter">
+  <div class="primary-title">{{ letter.title }}</div>
+  <div class="primary-body">{{ letter.body|truncatewords:"50"|linebreaks }}</div>
+
+  <div class="action-link"><a href="{{ letter.get_absolute_url }}">Read {% show_facebook_possesive letter.user %} letter</a></div>
+</div>
+{% endif %}{% endif %}

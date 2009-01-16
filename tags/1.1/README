@@ -1,0 +1,40 @@
+Copyright 2008 Brian Boyer, Ryan Mark, Angela Nitzke, Joshua Pollock,
+Stuart Tiffen, Kayla Webley and the Medill School of Journalism, Northwestern
+University.
+
+To bake your own Crunchberry Pie, you'll need the following projects:
+
+django-contact-form  http://djangoplugables.com/projects/django-contact-form/
+django-search        http://code.google.com/p/django-search/
+django-photologue    http://code.google.com/p/django-photologue/
+django-pressroom     http://djangoplugables.com/projects/django-pressroom/
+django-db-log        http://code.google.com/p/django-db-log/
+
+You'll need to add your own information to settings.example.py and copy/symlink
+or however you like it to settings.py. (We kept several settings files, each
+symlinked depending on the server.)
+
+If you'd like the about pages to work, you'll need to write your own in
+flatpages. Ditto the privacy policy.
+
+Once you've set up your application in Facebook, and pointed it back to your
+server (Sadly, in order to authenticate with Facebook, Pie must be on a
+publicly accessible server.), you should be able to fire it up.
+
+Installing the facebook templates is only necessary if you want to post comments
+back to the user's feed. The installfacebooktemplates management command creates
+the templates on Facebook based on the contents of facebook_templates.py.
+
+We highly recommend configuring caching.  Data received from Facebook API calls
+will be cached, vastly reducing the number of calls out, improving performance
+and reliability.
+
+Once configured, firing up the system goes a little something like this:
+
+./manage.py syncdb
+./manage.py createcachetable newsmixer_cache
+./manage.py installfacebooktemplates
+./manage.py runserver
+
+For more information on Connect, visit:
+http://wiki.developers.facebook.com/index.php/Facebook_Connect

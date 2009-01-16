@@ -1,0 +1,61 @@
+
+{% extends "base.html" %}
+{% load letters %}
+{% load facebook %}
+{% load profile %}
+{% block title %}{{ letter.title }}{% endblock %}
+{% block filling %}
+<div class="narrow">
+    <div class="letters-message">
+        <h2>Letters to the Editor</h2>
+        <p>Add your voice to the marketplace of ideas. Offer a thoughtful point of view in 250 words or less.</p>
+    </div>
+
+<div class="letter">
+    <div class="display">
+        <h5><a href="{{ letter.get_absolute_url }}">{{ letter.title }}</a>
+            {% if letter.letter %}
+                <span class="inre"> in reply to: 
+                    <a href="{{ letter.letter.get_absolute_url }}">{{ letter.letter.title }}</a></span>
+            {% else %}{% if letter.article %}
+                <span class="inre"> in reply to the article: 
+                    <a href="{{ letter.article.get_absolute_url }}">{{ letter.article.headline }}</a></span>
+            {% endif %}
+            {% endif %}</h5>
+        <div class="author">{% show_facebook_photo letter.user %}</div>
+        <p class="byline">by {{ letter.user.get_profile.full_name }}</p>
+        <p class="timesince">{{ letter.created|timesince }} ago</p>
+        {{ letter.body|linebreaks }}
+        {% if user.is_authenticated %}
+        <div class="actions">
+          {% show_follow_link letter.user.get_profile %}
+          <a href="{{ letter.get_absolute_url }}flag_as_offensive" class="offensive-button">Flag as offensive</a>
+          <a href="{{ letter.get_absolute_url }}reply" class="reply-button">Reply to this</a>
+        </div>
+        {% else %}
+        <div>
+            <strong>Log in to write a response:</strong>
+            {% show_connect_button %}
+        </div>
+        {% endif %}
+    </div>
+    {% if letter.replies.count %}
+    <div class="replies">
+    <h3>Replies:</h3>
+    {% for l in letter.replies.all %}
+      {% show_letter l %}
+    {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% if related_letters.count %}
+<div class="related-letters">
+<h3>Related Letters</h3>
+  {% for letter in related_letters %}
+    {% include "letters/letter_simple.html" %}
+  {% endfor %}
+</div>
+{% endif %}
+</div>
+{% endblock %}

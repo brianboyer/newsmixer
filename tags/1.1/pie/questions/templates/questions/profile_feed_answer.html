@@ -1,0 +1,12 @@
+{% load facebook %}
+<div class="feed-title answer">{% show_facebook_name answer.user %} <a href="{{ answer.get_absolute_url }}">answered a question about the article</a>: {{ answer.question.article.headline }}. <span class="time">{{ answer.created|timesince }} ago</span></div>
+<div class="feed-profile-pic answer">{% show_facebook_photo answer.user %}</div>
+<div class="feed-body answer">
+  <div class="secondary-body">Q: "{{ answer.question.text|truncatewords:"25" }}" <span class="attribution">- {% show_facebook_name answer.question.user %}</span></div>
+  <br/>
+  <div class="primary-title">A: "{{ answer.text|truncatewords:"50" }}" <span class="attribution">- {% show_facebook_name answer.user %}</span></div>
+  <br/>
+  <div class="secondary-title">{{ answer.question.article.headline }}</div>
+  <div class="secondary-body">{{ answer.question.article.body|truncatewords:"20"|linebreaks }}</div>
+  <div class="action-link"><a href="{{ answer.question.article.get_absolute_url }}">Read the article</a></div>
+</div>

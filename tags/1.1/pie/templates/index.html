@@ -1,0 +1,107 @@
+
+{% extends "base.html" %}
+{% load facebook %}
+{% load humanize %}
+{% load bumbles %}
+{% load activity %}
+{% load articles %}
+{% block title %}Stir it up{% endblock %}
+{% block filling %}
+<div id="newsfeed">
+{% if not user.is_authenticated %}
+<div id="welcome"><div class="bottom-corner">
+    <h2>Welcome to the mix!</h2>
+    <p>We're playing with new ways to talk about news.<br/> Take a look around and join the conversation.</p>
+    <p>Facebook users, log in by clicking the button below.</p>
+    {% show_connect_button %}
+</div></div>
+{% endif %}
+{% if featured_comment.friend %}
+<div id="featured-comment"><div class="bottom-corner">
+    {% if featured_comment.bumble %}
+    <h3>Your friend {% show_facebook_name featured_comment.friend %} quipped!</h3>
+    <p class="feature">{% show_facebook_name featured_comment.friend %} <span class="verb" title="{{ featured_comment.bumble.verb }}">{{ featured_comment.bumble.verb }}</span> {{ featured_comment.bumble.message }}</p>
+    <p class="inre">re: <a href="{{ featured_comment.bumble.article.get_absolute_url }}">{{ featured_comment.bumble.article.headline }}</a></p>
+    <p class="timesince">{{ featured_comment.bumble.created|timesince }} ago</p>
+    {% endif %}
+    {% if featured_comment.question %}
+    <h3>Your friend {% show_facebook_name featured_comment.friend %} asked a question!</h3>
+    <p class="feature">{{ featured_comment.question.text }}</p>
+    <p class="inre">re: <a href="{{ featured_comment.question.get_absolute_url }}">{{ featured_comment.question.article.headline }}</a></p>
+    <p class="timesince">{{ featured_comment.question.created|timesince }} ago</p>
+    {% endif %}
+    {% if featured_comment.answer %}
+    <h3>Your friend {% show_facebook_name featured_comment.friend %} answered someone's question!</h3>
+    <p id="question">Q: {{ featured_comment.answer.question.text }}</p>
+    <p class="feature">A: {{ featured_comment.answer.text }}</p>
+    <p class="inre">re: <a href="{{ featured_comment.answer.question.get_absolute_url }}">{{ featured_comment.answer.question.article.headline }}</a></p>
+    <p class="timesince">{{ featured_comment.answer.created|timesince }} ago</p>
+    {% endif %}
+    {% if featured_comment.letter %}
+    <h3>Your friend {% show_facebook_name featured_comment.friend %} wrote a letter to the editor!</h3>
+    <h4 id="letter_title"><a href="{{ featured_comment.letter.get_absolute_url }}">{{ featured_comment.letter.title }}</a></h4>
+    <p id="letter_body">{{ featured_comment.letter.body|truncatewords:40 }}</p>
+        {% if featured_comment.letter.article %}
+        <p class="inre">re: <a href="{{ featured_comment.letter.article.get_absolute_url }}">{{ featured_comment.letter.article.headline }}</a></p>
+        {% else %}
+            {% if featured_comment.letter.letter %}
+            <p class="inre">re: <a href="{{ featured_comment.letter.letter.get_absolute_url }}">{{ featured_comment.letter.letter.title }}</a></p>
+            {% endif %}
+        {% endif %}
+    <p class="timesince">{{ featured_comment.letter.created|timesince }} ago</p>
+    {% endif %}
+    <p class="activity">This week your friends wrote: 
+        <a href="/profiles/#friends">{% show_activity featured_comment.activity %}
+    </a></p>
+</div></div>
+{% endif %}
+<div class="articles-and-letters">
+    <h3>News and letters from Eastern Iowa</h3>
+    {% for article_or_pick in articles_and_picks %}
+        {% if article_or_pick.headline %}
+        {% show_article article_or_pick %}
+        {% else %}
+        <div class="letter">
+            <h4>A letter to the editors...</h4>
+            <h5><a href="{{ article_or_pick.letter.get_absolute_url }}">{{ article_or_pick.letter.title }}</a></h5>
+            <div class="author">{% show_facebook_photo article_or_pick.letter.user %}</div>
+            <p class="byline">by {{ article_or_pick.letter.user.get_profile.full_name }}</p>
+            {{ article_or_pick.letter.body|truncatewords:"40"|linebreaks }}
+            {% if article_or_pick.letter.letter %}
+            <p class="inre">re: <a href="{{ article_or_pick.letter.letter.get_absolute_url }}">{{ article_or_pick.letter.letter.title }}</a></p>
+            {% else %}
+                {% if article_or_pick.letter.article %}
+                <p class="inre">re: <a href="{{ article_or_pick.letter.article.get_absolute_url }}">{{ article_or_pick.letter.article.headline }}</a></p>
+                {% endif %}
+            {% endif %}
+            <p class="timesince">Selected by editors {{ article_or_pick.pub_date|timesince }} ago</p>
+        </div>
+        {% endif %}
+    {% endfor %}
+    <a href="/article/page/1">More articles...</a>
+</div>
+</div>
+<div id="conversation">
+    {% if featured_question.hot_question %}
+    <div id="featured-question"><div class="bottom-corner">
+        <h3>Hot question of<br/> the last three days:</h3>
+        <div class="inside">
+        <p class="feature">{{ featured_question.hot_question.text }}</p>
+        <p class="inre">re: <a href="{{ featured_question.hot_question.get_absolute_url }}">{{ featured_question.hot_question.article.headline }}</a></p>
+    </div></div></div>
+    {% endif %}
+    {% if featured_question.answer_me %}
+    <div id="featured-question"><div class="bottom-corner">
+        <h3>Help your neighbor<br/> and answer a question:</h3>
+        <div class="inside">
+        <p class="feature">{{ featured_question.answer_me.text }}</p>
+        <p class="inre">re: <a href="{{ featured_question.answer_me.get_absolute_url }}">{{ featured_question.answer_me.article.headline }}</a></p>
+    </div></div></div>
+    {% endif %}
+    <div id="buzz"><div class="bottom-corner">
+        <h3>What are people saying right now?</h3>
+        {% show_bumbles %}
+    </div></div>
+</div>
+{% show_bumbles_script "10" 'true' %}
+{% endblock %}

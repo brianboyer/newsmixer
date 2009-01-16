@@ -1,0 +1,23 @@
+{% load bumbles %}
+{% load facebook %}
+<div class="bumble">
+  <a name="bumble-{{bumble.id}}"></a>
+  <span class="photo">{% show_facebook_photo bumble.user %}</span>
+  <form method="POST" class="offensive" action="/bumbles/flag_as_offensive/{{ bumble.id }}/">
+      <input type="submit" value="Flag as offensive"/>
+  </form>
+  <div class="message">
+    <div class="top-left"><div class="top-right">
+      <div class="top"></div>
+      <div class="right">
+        <div class="center">
+          {% show_facebook_name bumble.user %} <span class="verb" title="{{ bumble.verb }}">{{ bumble.verb }}</span> {{ bumble.message }}
+          {% if show_headline %}<br/>
+          <span class="inre">re: <a href="{{ bumble.article.get_absolute_url }}">{{ bumble.article.headline|stringformat:".29s" }}</a></span>
+          {% endif %}
+    </div></div></div></div>
+    <div class="bottom-right"><div class="bottom-left"><div class="bottom"></div></div></div>
+  </div>
+  <span class="created">{{ bumble.created|timesince }} ago</span>
+</div>
+

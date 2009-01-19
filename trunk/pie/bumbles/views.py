@@ -116,9 +116,18 @@ def flag_as_offensive(request,bumble_id):
     else:
         raise Http404
     
-def widget(request):
+from pressroom.models import Article
+def widget(request,external_id):
+    try:
+        article = Article.objects.get(pk=external_id)
+    except Article.DoesNotExist:
+        article = Article(pk=external_id,slug=external_id,headline=external_id)
+        article.save()
     return render_to_response(
         "bumbles/widget.html",
-        {},
+        {
+            'article': article,
+            'next': request.GET['next'],
+        },
         context_instance=RequestContext(request)
     )

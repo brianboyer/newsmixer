@@ -50,7 +50,7 @@ def get_bumbles(request):
             else:
                 hedline = False
             context.update({'bumbles':recent_bumbles,'show_headline':hedline})
-            t = template.loader.get_template('bumbles/ajax_article_bumbles.html')
+            t = template.loader.get_template('bumbles/bumble_list.html')
             i = t.render(context)
         json = simplejson.dumps({
             'date':datetime.now().isoformat(' '),

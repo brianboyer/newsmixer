@@ -34,9 +34,9 @@ def show_facebook_name(context,user):
         p = user
     else:
         p = user.get_profile()
-    if context['request'].path.find('widget') > -1:
-        #if we're rendering a widget, kill the link
-        return {'string': p.full_name}
+    if settings.WIDGET_MODE:
+        #if we're rendering widgets, link direct to facebook
+        return {'string':u'<a href="%s">%s</a>' % (p.profile_url,p.full_name)}
     else:
         return {'string':u'<a href="%s">%s</a>' % (p.get_absolute_url(),p.full_name)}
 
@@ -78,7 +78,11 @@ def show_facebook_photo(context,user):
         p = user
     else:
         p = user.get_profile()
-    return {'string':u'<a href="%s"><img src="%s" alt="%s"/></a>' % (p.get_absolute_url(), p.picture_url, p.full_name)}
+    if settings.WIDGET_MODE:
+        #if we're rendering widgets, link direct to facebook
+        return {'string':u'<a href="%s"><img src="%s" alt="%s"/></a>' % (p.profile_url, p.picture_url, p.full_name)}
+    else:
+        return {'string':u'<a href="%s"><img src="%s" alt="%s"/></a>' % (p.get_absolute_url(), p.picture_url, p.full_name)}
 
 @register.inclusion_tag('facebook/display.html',takes_context=True)
 def show_facebook_info(context,user):

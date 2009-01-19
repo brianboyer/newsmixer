@@ -61,3 +61,6 @@ SECRET_KEY = '00000000000000000000000000000000000000000000000000'
 
 # Please setup caching
 #CACHE_BACKEND = 'db://newsmixer_cache'
+
+# If you're using Pie as a backend for widgets, turn this on. Little things will change
+#WIDGET_MODE = True

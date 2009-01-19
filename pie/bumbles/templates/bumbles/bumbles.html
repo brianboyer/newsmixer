@@ -3,9 +3,7 @@
 
 <div class="bumbles" id="bumbles">
 {% if bumbles %}
-{% for bumble in bumbles %}
-  {% include "bumbles/bumble.html" %}
-{% endfor %}
+{% include "bumbles/bumble_list.html" %}
 {% else %}
 <div id="start-message">
 <h4>Start the conversation.</h4>

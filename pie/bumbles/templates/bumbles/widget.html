@@ -1,6 +1,6 @@
 {% load bumbles %}
 {% load facebook %}
-<div style="font-size:0.9em;text-align:right;background-color:#727b95;padding:.2em;margin:0;">
+<div id="connect-form">
 {% if user.is_authenticated %}
     {% show_facebook_greeting user %}
     <a href="#" onclick="$.post('/accounts/logout',{},function() {FB.Connect.logoutAndRedirect('{{next}}');}); return false;">Logout</a>

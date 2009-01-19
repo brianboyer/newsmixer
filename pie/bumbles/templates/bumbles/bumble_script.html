@@ -15,7 +15,8 @@
 		window.onfocus = makeLive;
 	};
 	
-	$(document).ready(function(){
+    //this may break things.
+	//$(document).ready(function(){
 		$('.bumble-form').ajaxForm({
 			dataType:'json',
 			beforeSubmit:function(){
@@ -26,7 +27,7 @@
 			url:"/bumbles/create/remote"
 		});
 		makeLive();
-	});
+	//});
 	
 	function pushToFacebookFeedAndInsert(data){
 		makeLive();

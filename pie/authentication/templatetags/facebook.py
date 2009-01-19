@@ -34,7 +34,11 @@ def show_facebook_name(context,user):
         p = user
     else:
         p = user.get_profile()
-    return {'string':u'<a href="%s">%s</a>' % (p.get_absolute_url(),p.full_name)}
+    if context['request'].path.find('widget') > -1:
+        #if we're rendering a widget, kill the link
+        return {'string': p.full_name}
+    else:
+        return {'string':u'<a href="%s">%s</a>' % (p.get_absolute_url(),p.full_name)}
 
 @register.inclusion_tag('facebook/show_string.html',takes_context=True)
 def show_facebook_first_name(context,user):
@@ -96,9 +100,13 @@ def show_profile_mosaic(profiles):
 @register.inclusion_tag('facebook/connect_button.html',takes_context=True)
 def show_connect_button(context,javascript_friendly=False):
     req = context['request']
-    #this happens if login_required decorator sent us to the login page
+    
     if req.path.startswith('/accounts/login'):
+        #this happens if login_required decorator sent us to the login page
         next = getattr(req.GET,'next','')
+    elif 'next' in req.GET:
+        #logging in with the bumbles widget will do this
+        next = req.GET['next']
     else:
         next = context.get('next',req.path)
     return {'next':next,'javascript_friendly':javascript_friendly}

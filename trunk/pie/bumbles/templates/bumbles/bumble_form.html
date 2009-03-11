@@ -1,9 +1,0 @@
-<form class="bumble-form" method="POST" action="/bumbles/create">
-    <span class="name">{{ bumble_form.instance.user.get_profile.first_name }}</span>
-    {{ bumble_form.article }}
-    {{ bumble_form.verb }}
-    {{ bumble_form.message }}<br/>
-    <div class="count"><span class="charsLeft">140</span> characters remaining
-      <input type="hidden" name="maxlength" value="140" /></div>
-    <div class="submit"><input type="submit" value="Submit"/></div>
-</form>

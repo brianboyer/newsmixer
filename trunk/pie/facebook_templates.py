@@ -57,16 +57,16 @@ FACEBOOK_TEMPLATES = (
             'href': '{*url*}'
         }],
     )),
-    ('bumble',(
+    ('quip',(
         #one-line
         ['{*actor*} <a href="{*url*}">quipped about the article</a>: {*headline*}.'],
         [{#short story
             'template_title': '{*actor*} <a href="{*url*}">quipped about the article</a>: {*headline*}.',
-            'template_body': '<b>{*actor*} {*verb*} {*bumble*}</b>'
+            'template_body': '<b>{*actor*} {*verb*} {*quip*}</b>'
         }],
         {#full story
             'template_title': '{*actor*} <a href="{*url*}">quipped about the article</a>: {*headline*}.',
-            'template_body': '''<div style="font-size:1.5em;margin-bottom:0.4em;margin-top:2px;"><span style="border:solid 2px lightblue;text-transform:uppercase;padding:0 2px;">{*actor*}</span> <span style="border:solid 2px blue;background-color:{*verb_color*};color:white;text-transform:uppercase;padding:0 2px;">{*verb*}</span> {*bumble*}</div>
+            'template_body': '''<div style="font-size:1.5em;margin-bottom:0.4em;margin-top:2px;"><span style="border:solid 2px lightblue;text-transform:uppercase;padding:0 2px;">{*actor*}</span> <span style="border:solid 2px blue;background-color:{*verb_color*};color:white;text-transform:uppercase;padding:0 2px;">{*verb*}</span> {*quip*}</div>
             <div style="font-weight:bold;margin-bottom:0.2em;">{*headline*}</div>
             <div>{*article*}</div>'''
         },

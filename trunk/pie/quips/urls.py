@@ -28,9 +28,9 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^$', 'bumbles.views.get_bumbles'),
-    (r'^create$', 'bumbles.views.create'),
-    (r'^create/(?P<option>\w+)$', 'bumbles.views.create'),
-    (r'^flag_as_offensive/(?P<bumble_id>\d+)/$', 'bumbles.views.flag_as_offensive'),
-    (r'^widget/(?P<external_id>\d+)/$', 'bumbles.views.widget'),
+    (r'^$', 'quips.views.get_quips'),
+    (r'^create$', 'quips.views.create'),
+    (r'^create/(?P<option>\w+)$', 'quips.views.create'),
+    (r'^flag_as_offensive/(?P<quip_id>\d+)/$', 'quips.views.flag_as_offensive'),
+    (r'^widget/(?P<external_id>\d+)/$', 'quips.views.widget'),
 )

@@ -29,7 +29,7 @@ from facebook.djangofb import Facebook,get_facebook_client
 from facebook import FacebookError
 from urllib2 import URLError
 from pie.letters.models import Letter
-from pie.bumbles.models import Bumble
+from pie.quips.models import Quip
 from pie.questions.models import Question,Answer
 
 FACEBOOK_FIELDS = ['uid,name,first_name,pic_square_with_logo,affiliations,status,proxied_email']
@@ -131,7 +131,7 @@ class UserProfile(models.Model):
     def get_recent_comments(self):
         my_stuff = []
         my_stuff.extend(self.user.letter_set.all())
-        my_stuff.extend(self.user.bumble_set.all())
+        my_stuff.extend(self.user.quip_set.all())
         my_stuff.extend(self.user.question_set.all())
         my_stuff.extend(self.user.answer_set.all())
         my_stuff.sort(key=lambda x: x.created)
@@ -140,7 +140,7 @@ class UserProfile(models.Model):
         
     def get_activity(self):
         return {
-            Bumble:self.user.bumble_set.count(),
+            Quip:self.user.quip_set.count(),
             Letter:self.user.letter_set.count(),
             Question:self.user.question_set.count(),
             Answer:self.user.answer_set.count(),

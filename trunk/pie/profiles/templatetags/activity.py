@@ -18,7 +18,7 @@
 #along with Crunchberry Pie.  If not, see <http://www.gnu.org/licenses/>.
 
 from django import template
-from pie.bumbles.models import Bumble
+from pie.quips.models import Quip
 from pie.letters.models import Letter
 from pie.questions.models import Question, Answer
 
@@ -27,7 +27,7 @@ register = template.Library()
 @register.inclusion_tag("profiles/activity.html",takes_context=True)
 def show_activity(context, activity):
     context.update({
-        'bumbles':   activity[Bumble],
+        'quips':   activity[Quip],
         'letters':   activity[Letter],
         'questions': activity[Question],
         'answers':   activity[Answer],
@@ -39,7 +39,7 @@ def show_article_activity(context, article):
     answers = 0
     for q in article.question_set.all(): answers += q.answer_set.count()
     activity = {
-        Bumble:   article.bumble_set.count(),
+        Quip:   article.quip_set.count(),
         Letter:   article.letter_set.count(),
         Question: article.question_set.count(),
         Answer:   answers,

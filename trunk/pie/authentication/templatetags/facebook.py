@@ -109,7 +109,7 @@ def show_connect_button(context,javascript_friendly=False):
         #this happens if login_required decorator sent us to the login page
         next = getattr(req.GET,'next','')
     elif 'next' in req.GET:
-        #logging in with the bumbles widget will do this
+        #logging in with the quips widget will do this
         next = req.GET['next']
     else:
         next = context.get('next',req.path)

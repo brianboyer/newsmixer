@@ -33,7 +33,7 @@ VERB_CHOICES = (
     ('loves', 'Loves'),
 )
 
-class Bumble(models.Model):
+class Quip(models.Model):
     article = models.ForeignKey(Article)
     user = models.ForeignKey(User)
     verb = models.CharField(max_length=20, choices=VERB_CHOICES, default='says')
@@ -43,14 +43,14 @@ class Bumble(models.Model):
     created = models.DateTimeField(auto_now_add=True)
             
     def get_absolute_url(self):
-        return "%s#bumble-%i" % (self.article.get_absolute_url(),self.id)
+        return "%s#quip-%i" % (self.article.get_absolute_url(),self.id)
         
-class BumbleForm(ModelForm):
+class QuipForm(ModelForm):
     article = forms.CharField(widget=forms.HiddenInput)
     message = forms.CharField(widget=forms.Textarea(attrs={'rows':2}))
     
     class Meta:
-        model = Bumble
+        model = Quip
         exclude = ('user')
         
     def clean_article(self):

@@ -1,30 +1,30 @@
 <script type="text/javascript">
-	bumble_refresh = 0
+	quip_refresh = 0
 	curdate = "{% now "Y-m-d H:i:s" %}";
-	bumble_limit = {{ limit }};
+	quip_limit = {{ limit }};
 	
 	function stopLive() {
-	  clearInterval(bumble_refresh);
+	  clearInterval(quip_refresh);
 	  window.onblur = '';
 	};
 	function makeLive() {
-		clearInterval(bumble_refresh);
-        refreshBumbles();
-		bumble_refresh = setInterval("refreshBumbles()",12000);
+		clearInterval(quip_refresh);
+        refreshQuips();
+		quip_refresh = setInterval("refreshQuips()",12000);
 		window.onblur = stopLive;
 		window.onfocus = makeLive;
 	};
 	
     //this may break things.
 	//$(document).ready(function(){
-		$('.bumble-form').ajaxForm({
+		$('.quip-form').ajaxForm({
 			dataType:'json',
 			beforeSubmit:function(){
 				stopLive();
 				return true;
 			},
 			success:pushToFacebookFeedAndInsert,
-			url:"/bumbles/create/remote"
+			url:"/quips/create/remote"
 		});
 		makeLive();
 	//});
@@ -32,7 +32,7 @@
 	function pushToFacebookFeedAndInsert(data){
 		makeLive();
 		if(data['success']){
-			$('.bumble-form').resetForm();
+			$('.quip-form').resetForm();
 			$('.charsLeft').text('140');
 			var template_data = data['template_data'];
 			var template_bundle_id = data['template_bundle_id'];
@@ -42,11 +42,11 @@
 		}
 	}
 	
-	function refreshBumbles() {
-		$.post('/bumbles/',{'since':curdate,'show_headline':{{ show_headline }},'article':{{ article }}},function(data,textStatus){
-			newStuff = $("#bumbles").prepend(data['insert']);
+	function refreshQuips() {
+		$.post('/quips/',{'since':curdate,'show_headline':{{ show_headline }},'article':{{ article }}},function(data,textStatus){
+			newStuff = $("#quips").prepend(data['insert']);
             if(data['insert'] != null){
-                $("#bumbles").find('#start-message').remove();
+                $("#quips").find('#start-message').remove();
                 newStuff
                     .children(':first')
                     .css('backgroundColor','yellow')
@@ -54,14 +54,14 @@
             }
 			curdate = data['date'];
 		},"json");
-		if ( bumble_limit > 0 ){
-		  while ( $('#bumbles .bumble').length > bumble_limit )
-  		  $('#bumbles .bumble:last').remove();
+		if ( quip_limit > 0 ){
+		  while ( $('#quips .quip').length > quip_limit )
+  		  $('#quips .quip:last').remove();
 		}
 	}
 	
-	if ( $('.bumble-form textarea#id_message').length > 0 )
-  	$('.bumble-form textarea#id_message').maxlength({ 
+	if ( $('.quip-form textarea#id_message').length > 0 )
+  	$('.quip-form textarea#id_message').maxlength({ 
   		'feedback' : '.charsLeft',
   		'useInput' : true
   	});

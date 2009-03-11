@@ -20,7 +20,7 @@
 from django.contrib.auth.models import User
 from django import template
 from pie.letters.models import Letter
-from pie.bumbles.models import Bumble
+from pie.quips.models import Quip
 from pie.questions.models import Question,Answer
 
 register = template.Library()
@@ -37,9 +37,9 @@ class CommentNode(template.Node):
     def __init__(self, comment_obj):
         self.comment_obj = comment_obj
     def render(self, context):
-        if isinstance(context[self.comment_obj],Bumble):
-            template_name = "bumbles/profile_feed_bumble.html"
-            context.update({'bumble':context[self.comment_obj]})
+        if isinstance(context[self.comment_obj],Quip):
+            template_name = "quips/profile_feed_quip.html"
+            context.update({'quip':context[self.comment_obj]})
         elif isinstance(context[self.comment_obj],Answer):
             template_name = "questions/profile_feed_answer.html"
             context.update({'answer':context[self.comment_obj]})

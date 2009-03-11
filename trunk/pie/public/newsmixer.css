@@ -135,17 +135,17 @@ a:visited:hover {color:#2e2a2b;}
 #featured-question .inside {padding:0 0.4em 0.4em;background-color:#fdfcf7;margin:0 2px;overflow:hidden;}
 #featured-question .bottom-corner {background:url(/public/images/newsmixer/br-corner-empty.png) bottom right no-repeat;padding-bottom:19px;}
 #buzz,
-.article-bumbles {background:#d1cebb url(/public/images/newsmixer/bl-corner-fill.png) bottom left no-repeat;overflow:hidden;}
-.article-bumbles h4 {font-family:Georgia,Garamond,serif;line-height:1.5em;font-weight:normal;text-align:center;}
-.article-bumbles h4 form {margin-top:.5em;}
+.article-quips {background:#d1cebb url(/public/images/newsmixer/bl-corner-fill.png) bottom left no-repeat;overflow:hidden;}
+.article-quips h4 {font-family:Georgia,Garamond,serif;line-height:1.5em;font-weight:normal;text-align:center;}
+.article-quips h4 form {margin-top:.5em;}
 #buzz h3,
 #featured-question h3,
-.article-bumbles h3 {margin:0;padding:.5em;font-size:0.8em;}
+.article-quips h3 {margin:0;padding:.5em;font-size:0.8em;}
 #buzz .bottom-corner, 
-.article-bumbles .bottom-corner {background:url(/public/images/newsmixer/br-corner-fill.png) bottom right no-repeat;padding-bottom:25px;overflow:hidden;}
+.article-quips .bottom-corner {background:url(/public/images/newsmixer/br-corner-fill.png) bottom right no-repeat;padding-bottom:25px;overflow:hidden;}
 #featured-question .inside,
-.article-bumbles .inside,
-#buzz .bumbles {margin:0 2px;overflow:hidden;background-color:#fdfcf7;border:0;padding:.4em;max-height:100%;}
+.article-quips .inside,
+#buzz .quips {margin:0 2px;overflow:hidden;background-color:#fdfcf7;border:0;padding:.4em;max-height:100%;}
 .timesince, .count, .activity, .date {color:#803660;}
 
 div.questions {}
@@ -167,16 +167,16 @@ form.connect-button input[type=button] {background:url(http://static.ak.fbcdn.ne
 #error-page p.credit {margin-top:.5em;}
 
 /* Q&A */
-div.jqmWindow h1 {text-align:center;margin:10px 0;}
-div.jqmWindow .header {background:#999;color:white;padding:4px 8px;font-weight:bold;}
-div.jqmWindow .header a {float:right;}
-div.jqmWindow .header a:link {float:right;color:white;}
-div.jqmWindow .header a:hover {float:right;color:#dfdfdf;}
+div.article-questions h1 {text-align:center;margin:10px 0;}
+div.article-questions .header {background:#999;color:white;padding:4px 8px;font-weight:bold;}
+div.article-questions .header a {float:right;}
+div.article-questions .header a:link {float:right;color:white;}
+div.article-questions .header a:hover {float:right;color:#dfdfdf;}
 
 div.jqmWindow {border:.2em solid #425e88;}
-div.jqmWindow .tabs a {margin:0;}
-div.jqmWindow .tabs {background-color:#c9cedd;border:0;}
-div.jqmWindow .panel {padding:0;height:28em;overflow:auto;position:relative;border:0;}
+div.article-questions .tabs a {margin:0;}
+div.article-questions .tabs {background-color:#c9cedd;border:0;}
+div.article-questions .panel {padding:0;height:28em;overflow:auto;position:relative;border:0;}
 
 #article-body a.graf {display:block;position:relative;margin-left:-4em;padding-left:4em;}
 #article-body a.graf p {padding:0.5em;margin:0 -0.5em;}
@@ -227,60 +227,60 @@ div.jqmWindow .panel {padding:0;height:28em;overflow:auto;position:relative;bord
 .article-questions .answer div.text_and_ref,
 .article-questions .question .body {overflow:hidden;}
 
-/* bumbles */
-.article-bumbles #start-message {margin:1em .6em 0;}
-.article-bumbles #start-message h4 {text-align:center;font-weight:bold;font-size:1.2em;font-family:Verdana,Arial,sans-serif;}
-.article-bumbles .bumbles {overflow:auto;height:38em;margin:0;}
-.article-bumbles .bumbles .bumble {margin:.2em auto;padding:0;width:280px;}
-.article-bumbles .inside {padding:0;}
-.article-bumbles h4 {margin:0 .1em 1em;padding:0;}
+/* quips */
+.article-quips #start-message {margin:1em .6em 0;}
+.article-quips #start-message h4 {text-align:center;font-weight:bold;font-size:1.2em;font-family:Verdana,Arial,sans-serif;}
+.article-quips .quips {overflow:auto;height:38em;margin:0;}
+.article-quips .quips .quip {margin:.2em auto;padding:0;width:280px;}
+.article-quips .inside {padding:0;}
+.article-quips h4 {margin:0 .1em 1em;padding:0;}
 
-div.user-bumbles div.bumble p {display:none;}
-div.user-bumbles p {font-size: 0.9em;}
+div.user-quips div.quip p {display:none;}
+div.user-quips p {font-size: 0.9em;}
 
-.article-bumbles div.bumble,
-#buzz div.bumble {font-family:Verdana,Arial,sans-serif;margin-top:0.5em;font-size:0.8em;}
-.article-bumbles div.bumble p {font-family:Garamond,Georgia,serif;font-size:0.7em;}
-div.bumble span.photo {margin-right:0.5em;float:left;}
-div.bumble .created {display:block;text-align:right;color:#999;}
+.article-quips div.quip,
+#buzz div.quip {font-family:Verdana,Arial,sans-serif;margin-top:0.5em;font-size:0.8em;}
+.article-quips div.quip p {font-family:Garamond,Georgia,serif;font-size:0.7em;}
+div.quip span.photo {margin-right:0.5em;float:left;}
+div.quip .created {display:block;text-align:right;color:#999;}
 
-div.bumble .message {overflow:hidden;}
-div.bumble .message .inre {font-size:0.8em;margin-top:.2em;display:block;}
-div.bumble .message .top-left {background:url(/public/images/balloon-tl.png) top left no-repeat;padding-left:19px;}
-div.bumble .message .top-right {background:url(/public/images/balloon-tr.png) top right no-repeat;}
-div.bumble .message .top {background:url(/public/images/balloon-t.png) top left repeat-x;margin-right:6px;height:6px;}
-div.bumble .message .right {background:url(/public/images/balloon-r.png) top right repeat-y;padding-right:6px;}
-div.bumble .message .center {background:url(/public/images/balloon-bg.png);min-height:45px;line-height:1.5em;padding-left:5px;}
-div.bumble .message .bottom-left {background:url(/public/images/balloon-bl.png) bottom left no-repeat;padding-left:6px;margin-left:13px;}
-div.bumble .message .bottom-right {background:url(/public/images/balloon-br.png) bottom right no-repeat;padding-right:6px;}
-div.bumble .message .bottom {background:url(/public/images/balloon-b.png) bottom left repeat-x;height:6px;}
+div.quip .message {overflow:hidden;}
+div.quip .message .inre {font-size:0.8em;margin-top:.2em;display:block;}
+div.quip .message .top-left {background:url(/public/images/balloon-tl.png) top left no-repeat;padding-left:19px;}
+div.quip .message .top-right {background:url(/public/images/balloon-tr.png) top right no-repeat;}
+div.quip .message .top {background:url(/public/images/balloon-t.png) top left repeat-x;margin-right:6px;height:6px;}
+div.quip .message .right {background:url(/public/images/balloon-r.png) top right repeat-y;padding-right:6px;}
+div.quip .message .center {background:url(/public/images/balloon-bg.png);min-height:45px;line-height:1.5em;padding-left:5px;}
+div.quip .message .bottom-left {background:url(/public/images/balloon-bl.png) bottom left no-repeat;padding-left:6px;margin-left:13px;}
+div.quip .message .bottom-right {background:url(/public/images/balloon-br.png) bottom right no-repeat;padding-right:6px;}
+div.quip .message .bottom {background:url(/public/images/balloon-b.png) bottom left repeat-x;height:6px;}
 
-div.bumble input[type=button] {font-family:Garamond,Georgia,serif;display:block;margin-left:10em;margin-top:0.5em;float:left;text-transform:uppercase;font-size:0.7em;font-weight:bold;border:solid 0.2em green;background-color:white;color:black;}
-div.bumble form.offensive {display:none;}
+div.quip input[type=button] {font-family:Garamond,Georgia,serif;display:block;margin-left:10em;margin-top:0.5em;float:left;text-transform:uppercase;font-size:0.7em;font-weight:bold;border:solid 0.2em green;background-color:white;color:black;}
+div.quip form.offensive {display:none;}
 
-/* bumble coloring, used in bumbles list and on home page */
+/* quip coloring, used in quips list and on home page */
 span.verb {text-transform:uppercase;padding:0 0.2em;font-weight:bold;color:white;}
 
-form.bumble-form {margin:0.2em 0.5em;}
-form.bumble-form .count {float:left;font-size:0.8em;}
-form.bumble-form textarea {width:100%;font-size:1.2em;}
-form.bumble-form select option {color:white;}
-form.bumble-form .submit {text-align:right;}
+form.quip-form {margin:0.2em 0.5em;}
+form.quip-form .count {float:left;font-size:0.8em;}
+form.quip-form textarea {width:100%;font-size:1.2em;}
+form.quip-form select option {color:white;}
+form.quip-form .submit {text-align:right;}
 
 span.verb[title=thinks],
-form.bumble-form select option[value=thinks] {background-color: #079107;}
+form.quip-form select option[value=thinks] {background-color: #079107;}
 span.verb[title=loves],
-form.bumble-form select option[value=loves] {background-color: #611739;}
+form.quip-form select option[value=loves] {background-color: #611739;}
 span.verb[title=feels],
-form.bumble-form select option[value=feels] {background-color: #9d6884;}
+form.quip-form select option[value=feels] {background-color: #9d6884;}
 span.verb[title=agrees],
-form.bumble-form select option[value=agrees] {background-color: #cb8337;}
+form.quip-form select option[value=agrees] {background-color: #cb8337;}
 span.verb[title=disagrees],
-form.bumble-form select option[value=disagrees] {background-color: #6b6b6d;}
+form.quip-form select option[value=disagrees] {background-color: #6b6b6d;}
 span.verb[title=wonders],
-form.bumble-form select option[value=wonders] {background-color: #2a436a;}
+form.quip-form select option[value=wonders] {background-color: #2a436a;}
 span.verb[title=hates],
-form.bumble-form select option[value=hates] {background-color: #2e2a2b;}
+form.quip-form select option[value=hates] {background-color: #2e2a2b;}
 
 /* Letters to the editor */
 .actions {margin-bottom:0.5em;}
@@ -379,7 +379,7 @@ div#new-letter-errors {color:red;font-weight:bold;padding:0.5em;}
 .comments .feed-title .time{color:#999;font-size:.9em;display:block;}
 .comments .feed-title.answer {background:url(/public/images/exclamation.png) left top no-repeat;}
 .comments .feed-title.question {background:url(/public/images/help.png) left top no-repeat;}
-.comments .feed-title.bumble {background:url(/public/images/user_comment.png) left top no-repeat;}
+.comments .feed-title.quip {background:url(/public/images/user_comment.png) left top no-repeat;}
 .comments .feed-title.letter {background:url(/public/images/email_open.png) left top no-repeat;}
 .comments .feed-body .primary-title {font-size:1.4em;font-weight:bold;}
 .comments .feed-body .primary-body {font-size:1.2em;}

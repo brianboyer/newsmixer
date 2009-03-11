@@ -30,7 +30,7 @@ urlpatterns = patterns('',
     (r'^$', 'pie.views.index'),
     
     (r'^accounts/', include('pie.authentication.urls')),
-    (r'^bumbles/', include('pie.bumbles.urls')),
+    (r'^quips/', include('pie.quips.urls')),
     (r'^letters/', include('pie.letters.urls')),
     (r'^questions/', include('pie.questions.urls')),
     

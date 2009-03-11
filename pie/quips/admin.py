@@ -17,11 +17,11 @@
 #You should have received a copy of the GNU General Public License
 #along with Crunchberry Pie.  If not, see <http://www.gnu.org/licenses/>.
 
-from pie.bumbles.models import Bumble
+from pie.quips.models import Quip
 from django.contrib import admin
 
-class BumbleAdmin(admin.ModelAdmin):
+class QuipAdmin(admin.ModelAdmin):
     list_display = ('user','verb','message','article','offensive','created')
     list_filter = ('offensive',)
     
-admin.site.register(Bumble,BumbleAdmin)
+admin.site.register(Quip,QuipAdmin)

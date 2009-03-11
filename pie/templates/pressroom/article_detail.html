@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load bumbles %}
+{% load quips %}
 {% load letters %}
 {% load answers %}
 {% load facebook %}
@@ -48,20 +48,20 @@
 </div>
 
 <div class="sidebar">
-    <div class="article-bumbles"><div class="bottom-corner">
+    <div class="article-quips"><div class="bottom-corner">
         <h3>What are people saying right now?</h3>
         <div class="inside">
         {% if user.is_authenticated %}
-            {% show_bumble_form object %}
+            {% show_quip_form object %}
         {% else %}
             <h4>To join the conversation,<br/>log in with Facebook Connect.
             {% show_connect_button %}</h4>
         {% endif %}
-        {% show_article_bumbles object %}
+        {% show_article_quips object %}
         </div>
     </div></div>
 </div>
 
-{% show_bumbles_script '0' 'false' object %}
+{% show_quips_script '0' 'false' object %}
 {% show_questions_script object %}
 {% endblock %}

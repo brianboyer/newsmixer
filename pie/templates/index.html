@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% load facebook %}
 {% load humanize %}
-{% load bumbles %}
+{% load quips %}
 {% load activity %}
 {% load articles %}
 {% block title %}Stir it up{% endblock %}
@@ -18,11 +18,11 @@
 {% endif %}
 {% if featured_comment.friend %}
 <div id="featured-comment"><div class="bottom-corner">
-    {% if featured_comment.bumble %}
+    {% if featured_comment.quip %}
     <h3>Your friend {% show_facebook_name featured_comment.friend %} quipped!</h3>
-    <p class="feature">{% show_facebook_name featured_comment.friend %} <span class="verb" title="{{ featured_comment.bumble.verb }}">{{ featured_comment.bumble.verb }}</span> {{ featured_comment.bumble.message }}</p>
-    <p class="inre">re: <a href="{{ featured_comment.bumble.article.get_absolute_url }}">{{ featured_comment.bumble.article.headline }}</a></p>
-    <p class="timesince">{{ featured_comment.bumble.created|timesince }} ago</p>
+    <p class="feature">{% show_facebook_name featured_comment.friend %} <span class="verb" title="{{ featured_comment.quip.verb }}">{{ featured_comment.quip.verb }}</span> {{ featured_comment.quip.message }}</p>
+    <p class="inre">re: <a href="{{ featured_comment.quip.article.get_absolute_url }}">{{ featured_comment.quip.article.headline }}</a></p>
+    <p class="timesince">{{ featured_comment.quip.created|timesince }} ago</p>
     {% endif %}
     {% if featured_comment.question %}
     <h3>Your friend {% show_facebook_name featured_comment.friend %} asked a question!</h3>
@@ -100,8 +100,8 @@
     {% endif %}
     <div id="buzz"><div class="bottom-corner">
         <h3>What are people saying right now?</h3>
-        {% show_bumbles %}
+        {% show_quips %}
     </div></div>
 </div>
-{% show_bumbles_script "10" 'true' %}
+{% show_quips_script "10" 'true' %}
 {% endblock %}

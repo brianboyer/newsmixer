@@ -23,7 +23,7 @@ from django.template import defaultfilters
 from django.utils.safestring import mark_safe
 
 from pressroom.models import Article
-from bumbles.models import Bumble
+from quips.models import Quip
 from questions.models import Answer, Question
 from letters.models import Letter
 
@@ -35,11 +35,11 @@ def get_comments(profiles):
 
 def get_top_recent_comment(profiles):
     friend = None
-    bumble = None
+    quip = None
     question = None
     answer = None
     letter = None
-    activity = {Bumble:0,Question:0,Answer:0,Letter:0}
+    activity = {Quip:0,Question:0,Answer:0,Letter:0}
 
     comments = get_comments(profiles)
    
@@ -51,8 +51,8 @@ def get_top_recent_comment(profiles):
         comments.sort(key=lambda x: x.created)
         comment = comments[-1]
         friend = comment.user.get_profile()
-        if isinstance(comment,Bumble):
-            bumble = comment
+        if isinstance(comment,Quip):
+            quip = comment
         elif isinstance(comment,Answer):
             answer = comment
         elif isinstance(comment,Question):
@@ -64,7 +64,7 @@ def get_top_recent_comment(profiles):
                 
     return {
         'friend':   friend,
-        'bumble':   bumble,
+        'quip':   quip,
         'question': question,
         'answer':   answer,
         'letter':   letter,

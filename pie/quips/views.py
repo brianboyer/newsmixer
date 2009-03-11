@@ -29,33 +29,33 @@ from django.template.defaultfilters import truncatewords
 from django.utils import simplejson
 
 from pressroom.models import Article
-from bumbles.models import Bumble, BumbleForm
+from quips.models import Quip, QuipForm
 from facebook import Facebook
 from authentication.models import FacebookTemplate
 
 import logging
 
-def get_bumbles(request):
-    """ajax request for more bumbles"""
+def get_quips(request):
+    """ajax request for more quips"""
     if request.method == "POST":
         i = None;
         if int(getattr(request.POST,'article',0)) > 0:
-            recent_bumbles = Bumble.objects.filter(created__gt=request.POST['since'],article=Article.objects.get(pk=request.POST['article'])).order_by('-created')
+            recent_quips = Quip.objects.filter(created__gt=request.POST['since'],article=Article.objects.get(pk=request.POST['article'])).order_by('-created')
         else:
-            recent_bumbles = Bumble.objects.filter(created__gt=request.POST['since']).order_by('-created')
-        if recent_bumbles:
+            recent_quips = Quip.objects.filter(created__gt=request.POST['since']).order_by('-created')
+        if recent_quips:
             context = RequestContext(request)
             if request.POST['show_headline'] == 'true':
                 hedline = True
             else:
                 hedline = False
-            context.update({'bumbles':recent_bumbles,'show_headline':hedline})
-            t = template.loader.get_template('bumbles/bumble_list.html')
+            context.update({'quips':recent_quips,'show_headline':hedline})
+            t = template.loader.get_template('quips/quip_list.html')
             i = t.render(context)
         json = simplejson.dumps({
             'date':datetime.now().isoformat(' '),
             'insert':i,
-            'bumbles':recent_bumbles.count(),
+            'quips':recent_quips.count(),
         })
         return HttpResponse(json, mimetype='application/json')            
 
@@ -72,19 +72,19 @@ VERB_COLORS = {
 @login_required
 def create(request,option=None):
     if request.method == "POST":
-        f = BumbleForm(request.POST, instance=Bumble(user=request.user))
+        f = QuipForm(request.POST, instance=Quip(user=request.user))
         if f.is_valid():
-            new_bumble = f.save()
+            new_quip = f.save()
             verb = f.instance.verb
             template_data = {
                 "verb":        verb,
                 "verb_color":  VERB_COLORS[verb],
-                "bumble":      f.instance.message,
+                "quip":      f.instance.message,
                 "url":         settings.ROOT_URL + f.instance.get_absolute_url(),
                 "headline":    truncatewords(f.instance.article.headline,20),
                 "article":     truncatewords(f.instance.article.body,50),
             }
-            template_bundle_id = FacebookTemplate.objects.get(name='bumble').template_bundle_id
+            template_bundle_id = FacebookTemplate.objects.get(name='quip').template_bundle_id
             results = {
                 'success':True,
                 'date':datetime.now().isoformat(' '),
@@ -107,9 +107,9 @@ def create(request,option=None):
         raise Http404
 
 @login_required
-def flag_as_offensive(request,bumble_id):
+def flag_as_offensive(request,quip_id):
     if request.method == "POST":
-        b = Bumble.objects.get(pk=bumble_id)
+        b = Quip.objects.get(pk=quip_id)
         b.offensive = True
         b.save()
         return HttpResponseRedirect(b.get_absolute_url())
@@ -124,7 +124,7 @@ def widget(request,external_id):
         article = Article(pk=external_id,slug=external_id,headline=external_id)
         article.save()
     return render_to_response(
-        "bumbles/widget.html",
+        "quips/widget.html",
         {
             'article': article,
             'next': request.GET['next'],

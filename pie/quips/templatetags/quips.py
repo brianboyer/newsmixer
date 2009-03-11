@@ -19,46 +19,46 @@
 
 from django.contrib.auth.models import User
 from django import template
-from pie.bumbles.models import Bumble, BumbleForm
+from pie.quips.models import Quip, QuipForm
 from datetime import datetime, timedelta
 
 register = template.Library()
 
-@register.inclusion_tag('bumbles/bumble.html', takes_context=True)
-def show_bumble(context, bumble):
-    context.update({'bumbles':bumbles})
+@register.inclusion_tag('quips/quip.html', takes_context=True)
+def show_quip(context, quip):
+    context.update({'quips':quips})
     return context
 
-@register.inclusion_tag('bumbles/bumble_form.html', takes_context=True)
-def show_bumble_form(context, article=None, bumble=None, hidden=False):
+@register.inclusion_tag('quips/quip_form.html', takes_context=True)
+def show_quip_form(context, article=None, quip=None, hidden=False):
     if not article:
         article = context['article']
 
-    f = BumbleForm(instance=Bumble(user=context['user'],article=article))
+    f = QuipForm(instance=Quip(user=context['user'],article=article))
     style = ''
     if hidden:
         style = 'display:none;'
-    context.update({'bumble_form':f,'style':style})
+    context.update({'quip_form':f,'style':style})
     return context
     
-@register.inclusion_tag('bumbles/bumbles.html', takes_context=True)
-def show_article_bumbles(context, article=None):
-    """Show bumbles in reverse chrono for this article"""
+@register.inclusion_tag('quips/quips.html', takes_context=True)
+def show_article_quips(context, article=None):
+    """Show quips in reverse chrono for this article"""
     if not article:
         article = context['article']
-    bumbles = Bumble.objects.filter(article=article).order_by('-created')
-    context.update({'bumbles':bumbles})
+    quips = Quip.objects.filter(article=article).order_by('-created')
+    context.update({'quips':quips})
     return context
 
-@register.inclusion_tag('bumbles/bumbles.html', takes_context=True)
-def show_bumbles(context):
+@register.inclusion_tag('quips/quips.html', takes_context=True)
+def show_quips(context):
     #limit to top ten
-    bumbles = Bumble.objects.all().order_by('-created')[0:10]
-    context.update({'bumbles':bumbles,'show_headline':True})
+    quips = Quip.objects.all().order_by('-created')[0:10]
+    context.update({'quips':quips,'show_headline':True})
     return context
 
-@register.inclusion_tag('bumbles/bumble_script.html')
-def show_bumbles_script(limit=0,show_headline='false',article=None):
+@register.inclusion_tag('quips/quip_script.html')
+def show_quips_script(limit=0,show_headline='false',article=None):
     if article != None:
         artid=article.id
     else:
@@ -71,5 +71,5 @@ from django.utils.safestring import mark_safe
 def link_user(value):
     usernames = [word for word in value.split(' ') if word.startswith('@')]
     for username in usernames:
-        value = value.replace(username, "<a href=\"/bumbles/user/%s\">%s</a>" % (username.lstrip('@').lower(), username))
+        value = value.replace(username, "<a href=\"/quips/user/%s\">%s</a>" % (username.lstrip('@').lower(), username))
     return mark_safe(value)

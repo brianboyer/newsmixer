@@ -24,7 +24,7 @@ from pressroom.models import Article
 from django.contrib.auth.models import User
 
 from pressroom.models import Article
-from bumbles.models import Bumble
+from quips.models import Quip
 from questions.models import Answer, Question
 from letters.models import Letter
 
@@ -52,38 +52,38 @@ class HelpersTestCase(unittest.TestCase):
         q.created = ten_days_ago
         q.save()
        
-        #bumble by an enemy, recent
-        b = Bumble.objects.create(message='if i hate you',verb='wonders',user=self.test_enemy,article=self.test_article)
+        #quip by an enemy, recent
+        b = Quip.objects.create(message='if i hate you',verb='wonders',user=self.test_enemy,article=self.test_article)
        
     def mock_activity(self,b=0,q=0,a=0,l=0):
-        return {Bumble:b,Question:q,Answer:a,Letter:l}
+        return {Quip:b,Question:q,Answer:a,Letter:l}
        
     def test_get_top_recent_comment(self):
 
         #nothing by friends in range
         tc = get_top_recent_comment(self.test_friends)
         self.assertEqual(None, tc['friend'])
-        self.assertEqual(None, tc['bumble'])
+        self.assertEqual(None, tc['quip'])
         self.assertEqual(None, tc['question'])
         self.assertEqual(None, tc['answer'])
         self.assertEqual(None, tc['letter'])
         self.assertEqual(self.mock_activity(), tc['activity'])
         
-        #first bumble
-        b1 = Bumble.objects.create(message='this is great',verb='thinks',user=self.test_friend_one,article=self.test_article)
+        #first quip
+        b1 = Quip.objects.create(message='this is great',verb='thinks',user=self.test_friend_one,article=self.test_article)
         tc = get_top_recent_comment(self.test_friends)
         self.assertEqual(self.test_friend_one.get_profile(), tc['friend'])
-        self.assertEqual(b1  , tc['bumble'])
+        self.assertEqual(b1  , tc['quip'])
         self.assertEqual(None, tc['question'])
         self.assertEqual(None, tc['answer'])
         self.assertEqual(None, tc['letter'])
         self.assertEqual(self.mock_activity(1), tc['activity'])
         
-        #second, more recent bumble
-        b2 = Bumble.objects.create(message='this is also great',verb='thinks',user=self.test_friend_two,article=self.test_article)
+        #second, more recent quip
+        b2 = Quip.objects.create(message='this is also great',verb='thinks',user=self.test_friend_two,article=self.test_article)
         tc = get_top_recent_comment(self.test_friends)
         self.assertEqual(self.test_friend_two.get_profile(), tc['friend'])
-        self.assertEqual(b2,   tc['bumble'])
+        self.assertEqual(b2,   tc['quip'])
         self.assertEqual(None, tc['question'])
         self.assertEqual(None, tc['answer'])
         self.assertEqual(None, tc['letter'])
@@ -93,7 +93,7 @@ class HelpersTestCase(unittest.TestCase):
         q1 = Question.objects.create(text="i dont understand",user=self.test_friend_one,article=self.test_article)
         tc = get_top_recent_comment(self.test_friends)
         self.assertEqual(self.test_friend_one.get_profile(), tc['friend'])
-        self.assertEqual(None, tc['bumble'])
+        self.assertEqual(None, tc['quip'])
         self.assertEqual(q1,   tc['question'])
         self.assertEqual(None, tc['answer'])
         self.assertEqual(None, tc['letter'])
@@ -103,7 +103,7 @@ class HelpersTestCase(unittest.TestCase):
         q2 = Question.objects.create(text="i still dont understand",user=self.test_friend_one,article=self.test_article)
         tc = get_top_recent_comment(self.test_friends)
         self.assertEqual(self.test_friend_one.get_profile(), tc['friend'])
-        self.assertEqual(None, tc['bumble'])
+        self.assertEqual(None, tc['quip'])
         self.assertEqual(q2,   tc['question'])
         self.assertEqual(None, tc['answer'])
         self.assertEqual(None, tc['letter'])
@@ -113,7 +113,7 @@ class HelpersTestCase(unittest.TestCase):
         a1 = Answer.objects.create(text="it's quite simple, really'",user=self.test_friend_two,question=q1)
         tc = get_top_recent_comment(self.test_friends)
         self.assertEqual(self.test_friend_two.get_profile(), tc['friend'])
-        self.assertEqual(None, tc['bumble'])
+        self.assertEqual(None, tc['quip'])
         self.assertEqual(None, tc['question'])
         self.assertEqual(a1  , tc['answer'])
         self.assertEqual(None, tc['letter'])
@@ -123,7 +123,7 @@ class HelpersTestCase(unittest.TestCase):
         a2 = Answer.objects.create(text="it's still quite simple, really'",user=self.test_friend_two,question=q1)
         tc = get_top_recent_comment(self.test_friends)
         self.assertEqual(self.test_friend_two.get_profile(), tc['friend'])
-        self.assertEqual(None, tc['bumble'])
+        self.assertEqual(None, tc['quip'])
         self.assertEqual(None, tc['question'])
         self.assertEqual(a2  , tc['answer'])
         self.assertEqual(None, tc['letter'])
@@ -133,7 +133,7 @@ class HelpersTestCase(unittest.TestCase):
         l1 = Letter.objects.create(title="I'm sick and tired.",body='I think that all right-thinking people in this country',user=self.test_friend_one)
         tc = get_top_recent_comment(self.test_friends)
         self.assertEqual(self.test_friend_one.get_profile(), tc['friend'])
-        self.assertEqual(None, tc['bumble'])
+        self.assertEqual(None, tc['quip'])
         self.assertEqual(None, tc['question'])
         self.assertEqual(None, tc['answer'])
         self.assertEqual(l1,   tc['letter'])

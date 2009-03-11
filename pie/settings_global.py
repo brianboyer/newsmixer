@@ -85,7 +85,7 @@ INSTALLED_APPS = (
     
     'pie.articles',
     'pie.authentication',
-    'pie.bumbles',
+    'pie.quips',
     'pie.profiles',
     'pie.questions',
     'pie.letters',
@@ -119,3 +119,6 @@ FACEBOOK_CACHE_TIMEOUT = 1800
 #setting this to true will cause facebook to fail randomly
 #only for the masochistic
 RANDOM_FACEBOOK_FAIL = False
+
+# If you're using Pie as a backend for widgets, turn this on. Little things will change
+WIDGET_MODE = False

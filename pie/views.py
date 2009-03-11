@@ -23,7 +23,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from pressroom.models import Article
-from bumbles.models import Bumble
+from quips.models import Quip
 from questions.models import Answer, Question
 from questions.helpers import get_featured_question
 from letters.models import Letter, EditorPick

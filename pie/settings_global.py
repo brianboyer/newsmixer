@@ -83,18 +83,21 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.flatpages',
     
-    'pie.articles',
+    #'pie.articles',
     'pie.authentication',
     'pie.quips',
     'pie.profiles',
     'pie.questions',
     'pie.letters',
+    'pie.bartender',
     
     'contact_form',#install django-contact-form to your python path, needs python akismet
     'search',      #install django-search to your python path
     'photologue',  #install django-photologue to your python path
     'pressroom',   #install django-pressroom to your python path
     'djangodblog', #install django-db-log to your python path
+    
+    'registration',
 )
 
 # authentication
@@ -122,3 +125,8 @@ RANDOM_FACEBOOK_FAIL = False
 
 # If you're using Pie as a backend for widgets, turn this on. Little things will change
 WIDGET_MODE = False
+
+# days to active new accounts
+ACCOUNT_ACTIVATION_DAYS = 15
+
+LOGIN_REDIRECT_URL = "/bartender/"

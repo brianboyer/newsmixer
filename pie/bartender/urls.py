@@ -1,6 +1,4 @@
-# Copyright 2008 Brian Boyer, Ryan Mark, Angela Nitzke, Joshua Pollock,
-# Stuart Tiffen, Kayla Webley and the Medill School of Journalism, Northwestern
-# University.
+# Copyright 2009 Ryan Mark
 #
 # This file is part of Crunchberry Pie.
 #
@@ -18,19 +16,17 @@
 #along with Crunchberry Pie.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls.defaults import *
-from django.contrib.auth.views import login, logout
-from django.views.generic.simple import direct_to_template
-from django.conf import settings
-from bartender.models import Article
 
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin
-admin.autodiscover()
+from bartender.views import embed,dashboard,signup
 
 urlpatterns = patterns('',
-    (r'^$', 'quips.views.get_quips'),
-    (r'^create$', 'quips.views.create'),
-    (r'^create/(?P<option>\w+)$', 'quips.views.create'),
-    (r'^flag_as_offensive/(?P<quip_id>\d+)/$', 'quips.views.flag_as_offensive'),
-    (r'^api/get$', 'quips.views.api_get'),
+    url(r'^$', 
+        dashboard,
+        name="bartender_dashboard"),
+    url(r'^signup/$', 
+        signup,
+        name="bartender_signup"),
+    url(r'^(?P<api_key>\w+).js$', 
+        embed,
+        name="bartender_js"),
 )

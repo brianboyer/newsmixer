@@ -22,7 +22,7 @@ import datetime
 from django.template import defaultfilters
 from django.utils.safestring import mark_safe
 
-from pressroom.models import Article
+from bartender.models import Article
 from quips.models import Quip
 from questions.models import Answer, Question
 from letters.models import Letter

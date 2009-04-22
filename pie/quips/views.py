@@ -27,8 +27,9 @@ from django import template
 from django.template import Context, RequestContext
 from django.template.defaultfilters import truncatewords
 from django.utils import simplejson
+from django.core import serializers
 
-from pressroom.models import Article
+from bartender.models import Article
 from quips.models import Quip, QuipForm
 from facebook import Facebook
 from authentication.models import FacebookTemplate
@@ -57,7 +58,7 @@ def get_quips(request):
             'insert':i,
             'quips':recent_quips.count(),
         })
-        return HttpResponse(json, mimetype='application/json')            
+        return HttpResponse(json, mimetype='application/json')
 
 VERB_COLORS = {
     'thinks':    '#079107',
@@ -116,18 +117,31 @@ def flag_as_offensive(request,quip_id):
     else:
         raise Http404
     
-from pressroom.models import Article
-def widget(request,external_id):
+def api_get(request):
+    form_url = getattr(request.GET,'form_url','')
     try:
-        article = Article.objects.get(pk=external_id)
+        article = Article.objects.get(slug=request.GET['url'])
     except Article.DoesNotExist:
-        article = Article(pk=external_id,slug=external_id,headline=external_id)
+        article = Article(slug=request.GET['url'], headline=request.GET['headline'])
         article.save()
-    return render_to_response(
-        "quips/widget.html",
-        {
-            'article': article,
-            'next': request.GET['next'],
-        },
-        context_instance=RequestContext(request)
-    )
+        
+    context = RequestContext(request)
+
+    context.update({
+        'quips': Quip.objects.filter(article=article).order_by('-created'),
+        'quip_form': QuipForm(instance=Quip(user=context['user'],article=article)),
+        'style':'',
+        'url':form_url,
+    })
+    
+    t = template.loader.get_template('quips/quips.html')
+    i = t.render(context)
+    
+    t = template.loader.get_template('quips/quip_form.html')
+    f = t.render(context)
+    
+    json = simplejson.dumps({
+        'insert':i,
+        'form':f
+    })
+    return HttpResponse(json, mimetype='application/json')

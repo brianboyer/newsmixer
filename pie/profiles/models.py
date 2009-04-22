@@ -145,6 +145,13 @@ class UserProfile(models.Model):
             Question:self.user.question_set.count(),
             Answer:self.user.answer_set.count(),
         }
+        
+    def facebook_only(self):
+        """return true if this user uses facebook and only facebook"""
+        if self.facebook_id and self.facebook_id == self.user.username:
+            return true
+        else:
+            return false
 
     def __get_facebook_friends(self):
         _facebook_obj = get_facebook_client()

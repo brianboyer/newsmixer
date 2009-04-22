@@ -20,7 +20,7 @@
 import datetime
 import unittest
 
-from pressroom.models import Article
+from bartender.models import Article
 from django.contrib.auth.models import User
 
 from questions.helpers import get_featured_question

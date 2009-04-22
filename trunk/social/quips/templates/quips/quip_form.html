@@ -1,0 +1,9 @@
+<form class="quip-form" method="POST" action="{{ url }}">
+    <span class="name">{{ quip_form.instance.user.get_profile.first_name }}</span>
+    {{ quip_form.article }}
+    {{ quip_form.verb }}
+    {{ quip_form.message }}<br/>
+    <div class="count"><span class="charsLeft">140</span> characters remaining
+      <input type="hidden" name="maxlength" value="140" /></div>
+    <div class="submit"><input type="submit" value="Submit"/></div>
+</form>

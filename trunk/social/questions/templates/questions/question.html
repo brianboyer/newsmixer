@@ -1,0 +1,44 @@
+{% load answers %}
+{% load facebook %}
+<div class="question" id="question-{{q.block}}-{{q.id}}">
+  <a name="question-{{q.block}}-{{q.id}}"/>
+  <div class="mini-profile">
+  {% show_facebook_photo q.user %}
+  {% show_facebook_name q.user %}
+  </div>
+  <div class="prompt">Q:</div>
+  <div class="body">
+  {{ q.text|linebreaks }}
+  {% if user.is_authenticated %}
+  <div class="actions">
+  <a class="answer-button" href="#" onclick="$('#answer-form-{{q.id}}').slideToggle();return false;">Answer this</a>
+  | <a class="abuse-button" href="/questions/flag_question/{{q.id}}">Flag as Offensive</a>
+  </div>
+  {% endif %}
+  </div>
+
+</div>
+{% if user.is_authenticated %}
+<form class="answer-form" id="answer-form-{{ q.id }}" method="POST" action="/questions/{{q.id}}/answer" style="display:none;">
+    <div class="mini-profile">
+      {% show_facebook_photo user %}
+      {% show_facebook_name user %}
+    </div>
+    <div class="prompt"><label for="id_text">A:</label></div>
+    <div class="body">
+    {{ answer_form.text }}
+    Web page as a reference (eg. http://en.wikipedia.org/wiki/Donuts):
+    {{ answer_form.reference }}<br/>
+    <div class="submit">
+      <input type="button" onclick="$('#answer-form-{{q.id}}').slideToggle();return false;" value="Cancel" />
+      <input type="submit" value="Submit Answer"/>
+    </div>
+    </div>
+</form>
+{% endif %}
+
+<div class="answers" id="answers-{{q.id}}">
+  {% for a in q.answer_set.all %}
+      {% show_answer a %}
+  {% endfor %}
+</div>

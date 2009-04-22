@@ -1,0 +1,5 @@
+Feedback from {{ site }}
+
+{{ name }} <{{ email }}> wrote:
+
+{{ body }}

@@ -1,0 +1,11 @@
+{% ifequal display "unfollow" %}
+<form action="{{ profile.get_unfollow_url }}" method="post">
+  <a href="" onclick="$(this).parent().submit();return false" class="unsubscribe-button">Stop following {{ profile.first_name }}</a>
+</form>
+{% else %}{% ifequal display "follow"  %}
+<form action="{{ profile.get_follow_url }}" method="post">
+  <a href="" onclick="$(this).parent().submit();return false" class="subscribe-button">Follow {{ profile.first_name }}</a>
+</form>
+{% else %}{% ifequal display "friend"  %}
+<form><span class="subscribe-button disabled">{{ profile.first_name }} is your friend</span></form>
+{% endifequal %}{% endifequal %}{% endifequal %}

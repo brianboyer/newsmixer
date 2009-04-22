@@ -1,0 +1,18 @@
+{% load quips %}
+{% load facebook %}
+<div id="connect-form">
+{% if user.is_authenticated %}
+    {% show_facebook_greeting user %}
+    <a href="#" onclick="$.post('/accounts/logout',{},function() {FB.Connect.logoutAndRedirect('{{next}}');}); return false;">Logout</a>
+    {% show_quip_form article %}
+{% else %}           
+    Join the conversation:
+    {% show_connect_button %}
+{% endif %}
+</div>
+<div id="buzz">
+<h3>What are people saying right now?</h3>
+{% show_article_quips article %}
+</div>
+{% show_quips_script '0' 'false' article %}
+{% show_facebook_js %}

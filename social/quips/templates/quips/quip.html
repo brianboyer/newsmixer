@@ -1,0 +1,23 @@
+{% load quips %}
+{% load facebook %}
+<div class="quip">
+  <a name="quip-{{quip.id}}"></a>
+  <span class="photo">{% show_facebook_photo quip.user %}</span>
+  <form method="POST" class="offensive" action="/quips/flag_as_offensive/{{ quip.id }}/">
+      <input type="submit" value="Flag as offensive"/>
+  </form>
+  <div class="message">
+    <div class="top-left"><div class="top-right">
+      <div class="top"></div>
+      <div class="right">
+        <div class="center">
+          {% show_facebook_name quip.user %} <span class="verb" title="{{ quip.verb }}">{{ quip.verb }}</span> {{ quip.message }}
+          {% if show_headline %}<br/>
+          <span class="inre">re: <a href="{{ quip.article.get_absolute_url }}">{{ quip.article.headline|stringformat:".29s" }}</a></span>
+          {% endif %}
+    </div></div></div></div>
+    <div class="bottom-right"><div class="bottom-left"><div class="bottom"></div></div></div>
+  </div>
+  <span class="created">{{ quip.created|timesince }} ago</span>
+</div>
+

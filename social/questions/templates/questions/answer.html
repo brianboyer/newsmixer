@@ -1,0 +1,16 @@
+{% load answers %}
+{% load facebook %}
+<div class="answer" id="answer-{{ answer.question.block }}-{{answer.id}}">
+  <a name="answer-{{ answer.question.block }}-{{answer.id}}"></a>
+  <div class="mini-profile">
+  {% show_facebook_photo answer.user %}
+  {% show_facebook_name answer.user %}
+  </div>
+  <div class="prompt">A:</div>
+  <div id="text_and_ref_{{answer.id}}" class="text_and_ref" {% if hide_answer %} style="display:none;"{% endif %}>        
+    {{ answer.text|linebreaks }}
+    {% if answer.reference %}
+    <div class="reference">Reference: {{answer.reference|urlizetrunc:"60"}}</div>
+    {% endif %}
+  </div>
+</div>

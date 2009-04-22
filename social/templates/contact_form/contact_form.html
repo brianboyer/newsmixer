@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% block title %}Tell us what you think{% endblock %}
+{% block filling %}<div class="narrow">
+<h3>Tell us what you think</h3>
+<p>Please let us know if you have great ideas to improve News Mixer, if you are having problems using the site or if you just want to tell us about your experience. We may not be able to respond to every submission but we take all feedback seriously.</p>
+
+    <form name="formname" action="" method="post" class="big-form">
+        <div class="contact">
+            <div class="column">
+                <label for="name">Name</label>
+                <input size="40" name="name" maxlength="50" type="text">
+            </div>
+            <div class="column">
+                <label for="email">Email Address</label>
+                <input size="40" name="email" maxlength="50" class="full required" type="text">
+            </div>
+        </div>
+        <div class="comments">
+            <label for="comment">Comments</label>
+            <textarea name="body" rows="10" cols="20" class="required"></textarea><br />
+            <input type="submit" name="submitfeedback" value="Submit">   
+        </div>
+    </form></div>
+{% endblock %}

@@ -1,0 +1,9 @@
+
+{% load activity %}
+<div>
+    <h4><a href="{{ article.get_absolute_url }}">{{ article.headline }}</a></h4>
+    <p class="byline">{{ article.author }}</p>
+    <p>{{ article.summary }}</p>
+    <p class="timesince">{{ article.pub_date|timesince }} ago</p>
+    <p class="activity">People have written: {% show_article_activity article %}</p>
+</div>

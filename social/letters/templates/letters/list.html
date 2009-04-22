@@ -1,0 +1,9 @@
+{% load facebook %}
+{% load humanize %}
+<div class="letter-simple-list">
+{% if letter_list.count %}
+{% for letter in letter_list %}
+{% include "letters/letter_simple.html" %}
+{% endfor %}
+{% endif %}
+</div>

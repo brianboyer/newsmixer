@@ -1,0 +1,15 @@
+
+{% load facebook %}
+<div class="feed-title quip">{% show_facebook_name quip.user %} <a href="{{ quip.get_absolute_url }}">quipped about the article</a>: {{ quip.article.headline }}. <span class="time">{{ quip.created|timesince }} ago</span></div>
+<div class="feed-profile-pic quip">{% show_facebook_photo quip.user %}</div>
+<div class="feed-body quip">
+  <div class="primary-title">
+  <span class="name"><a href="{{quip.user.get_profile.get_absolute_url}}">{{quip.user.get_profile.first_name}}</a></span>
+  <span class="verb" title="{{quip.verb}}">{{ quip.verb }}</span>
+  {{ quip.message|truncatewords:"50" }}
+  </div>
+  <br/>
+  <div class="secondary-title">{{ quip.article.headline }}</div>
+  <div class="secondary-body">{{ quip.article.body|truncatewords:"20"|linebreaks }}</div>
+  <div class="action-link"><a href="{{ quip.get_absolute_url }}">Quip back!</a></div>
+</div>

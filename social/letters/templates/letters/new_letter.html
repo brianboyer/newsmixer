@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load facebook %}
+
+{% block title %}Write a letter to the editor{% endblock %}
+
+{% block script %}
+  <script src="/public/jquery.maxlength.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
+{% block filling %}
+<div class="narrow">
+    <div class="letters-message">
+        <h2>Letters to the Editor</h2>
+        <p>Add your voice to the marketplace of ideas. Offer a thoughtful point of view in 250 words or less.</p>
+    </div>
+
+<form action="" method="post" id="new-letter">
+{% if letter_form.instance.article %}
+<h4>Article headline:
+  <a href="{{ letter_form.instance.article.get_absolute_url }}">{{ letter_form.instance.article.headline }}</a></h4>
+{% endif %}
+<h4>Your name: {% show_facebook_name user %}</h4>
+
+    <p><label for="id_title">Your Title:</label>{{ letter_form.title }}</p>
+    {{ letter_form.title.errors }}
+    {% if letter_form.instance.letter %}
+    <p>re: 
+      <a href="{{ letter_form.instance.letter.get_absolute_url }}">{{ letter_form.instance.letter.title }}</a> by {% show_facebook_name letter_form.instance.letter.user %}</p>
+    {% endif %}
+
+    {{ letter_form.body.errors }}
+    <p>
+        <label for="id_body">Letter:</label>
+        <div>{{ letter_form.body }}
+        <br/><span class="wordsLeft">250</span> words remaining</div>
+    </p>
+    <input type="hidden" name="maxlength" value="250" />
+    <input type="submit" value="Submit" onclick="this.value='Submitting...';"/>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function(){$('#new-letter').ajaxForm({dataType:'json',success:pushToFacebookFeed});});
+</script>
+<script type="text/javascript">
+  $('textarea#id_body').maxlength({
+    'feedback' : '.wordsLeft',
+    'useInput' : true,
+    'words' : true
+  });
+</script>
+</div>
+{% endblock %}

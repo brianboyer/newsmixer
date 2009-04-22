@@ -1,0 +1,13 @@
+{% load facebook %}
+{% load quips %}
+
+<div class="quips" id="quips">
+{% if quips %}
+{% include "quips/quip_list.html" %}
+{% else %}
+<div id="start-message">
+<h4>Start the conversation.</h4>
+<p>What did you think about this article? Share what you think, feel, wonder, agree, disagree, love or hate. Your quips are limited to 140 characters, but you can quip as often as you like.</p>
+</div>
+{% endif %}
+</div>

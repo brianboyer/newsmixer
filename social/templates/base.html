@@ -1,0 +1,55 @@
+{% load facebook %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>{% block title %}{% endblock %} - News Mixer</title>
+    <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+    <script src="/public/jquery-1.2.6.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/public/form.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/public/jquery.color.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="/public/newsmixer.css" type="text/css" media="screen" title="Plain" charset="utf-8" />
+    <link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico" />
+    {% block script %}{% endblock %}
+</head>
+<body>
+    <div id="header">
+        <div id="masthead">
+        <h1><a href="/"><span>News Mixer</span></a></h1>
+        <h2>Stir it up</h2>
+        </div>
+        <div id="primary-navigation">
+        <ul>
+          <li><a href="/"><span class="head">Home</span><span class="sub">Learn about News Mixer</span></a></li>
+          <li><a href="http://newsmixer.us"><span class="head">Demo</span><span class="sub">See News Mixer in action</span></a></li>
+          <li><a href="/contact/"><span class="head">Feedback</span><span class="sub">Tell us what you think</span></a></li>
+          <li class="last"><a href="/bartender/"><span class="head">Account</span><span class="sub">Set up News Mixer for your site</span></a></li>
+        </ul>
+        </div>
+    </div>
+    <div id="body">
+    {% block filling %}{% endblock %}
+    </div>
+    <div id="footer">
+        <hr/>
+        <p>Source code for this application is licensed under the <a href="http://www.gnu.org/licenses/gpl.html">GPL version 3</a>,
+            and is available for <a href="http://code.google.com/p/newsmixer/">download</a> (please take it and make good stuff).
+            How we treat your personal information is detailed in our <a href="/privacy-policy/">privacy policy</a>.
+        </p>
+        <p>This is a project of the <a href="http://www.medill.northwestern.edu/">Medill School of Journalism</a> and <a href="http://www.gazettecommunications.com/">Gazette Communications</a>.</p>
+    </div>
+    {% show_facebook_js %}
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+        try {
+        var pageTracker = _gat._getTracker("UA-4270061-4");
+        pageTracker._trackPageview();
+        } catch(err) {}
+    </script>
+</body>
+</html>

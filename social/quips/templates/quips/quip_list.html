@@ -1,0 +1,5 @@
+{% load facebook %}
+{% load quips %}
+{% for quip in quips %}
+  {% include "quips/quip.html" %}
+{% endfor %}

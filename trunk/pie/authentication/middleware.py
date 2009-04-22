@@ -19,7 +19,6 @@
 
 import logging
 import warnings
-from datetime import datetime
 from django.core.urlresolvers import reverse
 from django.contrib.auth import logout
 from django.conf import settings
@@ -27,6 +26,7 @@ from facebook import Facebook,FacebookError
 from django.template import TemplateSyntaxError
 from django.http import HttpResponseRedirect,HttpResponse
 from urllib2 import URLError
+from profiles.models import UserProfile
 
 class FacebookConnectMiddleware(object):
     """Middlware to provide a working facebook object"""
@@ -34,7 +34,7 @@ class FacebookConnectMiddleware(object):
         """process incoming request"""
         try:
             bona_fide = request.facebook.check_session(request)
-            if request.user.is_authenticated():
+            if request.user.is_authenticated() and request.user.get_profile().facebook_only():
                 cur_user = request.facebook.users.getLoggedInUser()
                 logging.debug("Bona Fide: %s Logged in: %s FB Obj: %s" % (bona_fide,cur_user,request.facebook.uid))
                 if not bona_fide or int(cur_user) != int(request.facebook.uid):
@@ -42,6 +42,9 @@ class FacebookConnectMiddleware(object):
                     logout(request)
                     request.facebook.session_key = None
                     request.facebook.uid = None
+        except UserProfile.DoesNotExist, ex:
+            #This user is not from facebook so they are ok
+            pass
         except Exception, ex:
             #Because this is a middleware, we can't assume the errors will be caught elsewhere.
             logout(request)

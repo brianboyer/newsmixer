@@ -17,47 +17,24 @@
 <body>
     <div id="header">
         <div id="masthead">
-        <div id="you">
-        {% if user.is_authenticated %}
-            {% show_facebook_photo user %}
-            {% show_facebook_greeting user %}<br/>
-            <a href="#" onclick="$.post('/accounts/logout',{},function() {FB.Connect.logoutAndRedirect('/')}); return false;">Logout</a>
-        {% else %}
-            {% if not hide_primary_login %}
-            <div>            
-                To join the conversation, log in with Facebook Connect!
-                {% show_connect_button %}
-            </div>
-            {% endif %}
-        {% endif %}
-        </div>
         <h1><a href="/"><span>News Mixer</span></a></h1>
         <h2>Stir it up</h2>
         </div>
         <div id="primary-navigation">
         <ul>
-          <li><a href="/"><span class="head">Home</span><span class="sub">Follow the latest news</span></a></li>
-          <li><a href="/about-this-site/"><span class="head">About</span><span class="sub">Learn about the site</span></a></li>
+          <li><a href="/"><span class="head">Home</span><span class="sub">Learn about News Mixer</span></a></li>
+          <li><a href="http://newsmixer.us"><span class="head">Demo</span><span class="sub">See News Mixer in action</span></a></li>
           <li><a href="/contact/"><span class="head">Feedback</span><span class="sub">Tell us what you think</span></a></li>
-          <li class="last"><a href="/letters/"><span class="head">Letters</span><span class="sub">Be heard: Write to the editor</span></a></li>
+          <li class="last"><a href="/bartender/"><span class="head">Account</span><span class="sub">Set up News Mixer for your site</span></a></li>
         </ul>
         </div>
-        {% if user.is_authenticated %}
-        <div id="user-navigation">
-            Find out what 
-            <a href="/profiles/">the News Mixer users you follow and your Facebook friends</a>
-            are talking about.
-        </div>            
-        {% endif %}
     </div>
     <div id="body">
     {% block filling %}{% endblock %}
     </div>
     <div id="footer">
         <hr/>
-        <p>
-            All content &copy; 2008 Gazette Communications.
-            Source code for this application is licensed under the <a href="http://www.gnu.org/licenses/gpl.html">GPL version 3</a>,
+        <p>Source code for this application is licensed under the <a href="http://www.gnu.org/licenses/gpl.html">GPL version 3</a>,
             and is available for <a href="http://code.google.com/p/newsmixer/">download</a> (please take it and make good stuff).
             How we treat your personal information is detailed in our <a href="/privacy-policy/">privacy policy</a>.
         </p>

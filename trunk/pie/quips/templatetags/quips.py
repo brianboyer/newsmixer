@@ -18,6 +18,7 @@
 #along with Crunchberry Pie.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django import template
 from pie.quips.models import Quip, QuipForm
 from datetime import datetime, timedelta
@@ -38,7 +39,7 @@ def show_quip_form(context, article=None, quip=None, hidden=False):
     style = ''
     if hidden:
         style = 'display:none;'
-    context.update({'quip_form':f,'style':style})
+    context.update({'quip_form':f,'style':style,'url':reverse("quips.views.create")})
     return context
     
 @register.inclusion_tag('quips/quips.html', takes_context=True)

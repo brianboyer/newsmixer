@@ -22,7 +22,7 @@ import logging
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from pressroom.models import Article
+from bartender.models import Article
 from quips.models import Quip
 from questions.models import Answer, Question
 from questions.helpers import get_featured_question
@@ -50,24 +50,5 @@ def index(request):
             'featured_question':  featured_question,
             'featured_comment':   featured_comment,
         },
-        context_instance=RequestContext(request)
-    )
-    
-def about(request):
-    return rr("about.html", request)
-
-def feedback(request):
-    return rr("feedback.html", request)
-    
-def process(request):
-    return rr("process.html", request)
-
-def report(request):
-    return rr("report.html", request)
-    
-def rr(page,request):
-    return render_to_response(
-        page,
-        None,
         context_instance=RequestContext(request)
     )

@@ -19,7 +19,7 @@
 
 from datetime import datetime
 from django.db import models
-from pressroom.models import Article
+from bartender.models import Article
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 import search

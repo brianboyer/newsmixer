@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block filling %}
+<div class="narrow">
+    <h3>What'll it be, {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}?</h3>
+    <p>Manage News Mixer for your sites or click add another web site.</p>
+    {% if service_account %}
+        {% for sa in service_account %}
+            <div class="service-account">
+                <h3>{{ sa.site.name }}
+                    <small>at <a href="{{ sa.site.domain }}">{{ sa.site.domain }}</a></small></h3>
+                <p><strong>API Key:</strong> <br/>{{ sa.api_key }} 
+                    <small><a href="javascript:copy('{{ sa.api_key }}')">copy</a></small></p>
+                <p><strong>Secret:</strong> <br/>{{ sa.secret }}
+                    <small><a href="javascript:copy('{{ sa.secret }}')">copy</a></small></p>
+                <p><strong>Contact Email:</strong> <br/>{{ sa.user.email }}</p>
+                <h5>Place the following code in the footer of your website.</h4>
+                <code>{% filter force_escape %}
+                    <script src="http://newsmixer.us{% url bartender_js sa.api_key %}" type="text/javascript" charset="utf-8"></script>
+                {% endfilter %}</code>
+                
+            </div>
+        {% endfor %}
+        <h3><a href="signup/">Add another web site</a>.</h3>
+    {% else %}
+        <p>You have not setup your web site yet. <a href="signup/">Add it now</a>.</p>
+    {% endif %}
+</div>
+{% endblock %}

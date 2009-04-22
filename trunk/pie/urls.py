@@ -27,19 +27,17 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^$', 'pie.views.index'),
-    
-    (r'^accounts/', include('pie.authentication.urls')),
+    (r'^accounts/', include('registration.urls')),
     (r'^quips/', include('pie.quips.urls')),
     (r'^letters/', include('pie.letters.urls')),
     (r'^questions/', include('pie.questions.urls')),
+    (r'^bartender/', include('pie.bartender.urls')),
     
     (r'^profiles/',include('pie.profiles.urls')),
     
     (r'^admin/(.*)', admin.site.root),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^contact/', include('contact_form.urls')),
-    (r'',include('pressroom.urls')),
     
     (r'^public/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_DOC_ROOT}),
 )

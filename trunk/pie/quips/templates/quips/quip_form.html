@@ -1,4 +1,4 @@
-<form class="quip-form" method="POST" action="{{ url }}">
+<form class="quip-form" method="POST" action="/quips/create">
     <span class="name">{{ quip_form.instance.user.get_profile.first_name }}</span>
     {{ quip_form.article }}
     {{ quip_form.verb }}

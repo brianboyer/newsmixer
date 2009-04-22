@@ -18,7 +18,7 @@
 #along with Crunchberry Pie.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.db import models
-from bartender.models import Article
+from pressroom.models import Article
 from django.contrib.auth.models import User
 from django import forms
 from django.forms import ModelForm

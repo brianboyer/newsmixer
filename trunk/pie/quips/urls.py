@@ -21,7 +21,7 @@ from django.conf.urls.defaults import *
 from django.contrib.auth.views import login, logout
 from django.views.generic.simple import direct_to_template
 from django.conf import settings
-from bartender.models import Article
+from pressroom.models import Article
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -32,5 +32,5 @@ urlpatterns = patterns('',
     (r'^create$', 'quips.views.create'),
     (r'^create/(?P<option>\w+)$', 'quips.views.create'),
     (r'^flag_as_offensive/(?P<quip_id>\d+)/$', 'quips.views.flag_as_offensive'),
-    (r'^api/get$', 'quips.views.api_get'),
+    (r'^widget/(?P<external_id>\d+)/$', 'quips.views.widget'),
 )

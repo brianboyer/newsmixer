@@ -20,10 +20,10 @@
 import datetime
 import unittest
 
-from bartender.models import Article
+from pressroom.models import Article
 from django.contrib.auth.models import User
 
-from bartender.models import Article
+from pressroom.models import Article
 from quips.models import Quip
 from questions.models import Answer, Question
 from letters.models import Letter

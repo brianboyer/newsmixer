@@ -36,7 +36,7 @@ def show_facebook_name(context,user):
         p = user.get_profile()
     if settings.WIDGET_MODE:
         #if we're rendering widgets, link direct to facebook
-        return {'string':u'<fb:name uid="%s" />' % (p.facebook_id)}
+        return {'string':u'<a href="%s">%s</a>' % (p.profile_url,p.full_name)}
     else:
         return {'string':u'<a href="%s">%s</a>' % (p.get_absolute_url(),p.full_name)}
 
@@ -46,11 +46,7 @@ def show_facebook_first_name(context,user):
         p = user
     else:
         p = user.get_profile()
-    if settings.WIDGET_MODE:
-        #if we're rendering widgets, link direct to facebook
-        return {'string':u'<fb:name uid="%s" firstnameonly="true" />' % (p.facebook_id)}
-    else:
-        return {'string':u'<a href="%s">%s</a>' % (p.get_absolute_url(),p.first_name)}
+    return {'string':u'<a href="%s">%s</a>' % (p.get_absolute_url(),p.first_name)}
     
 @register.inclusion_tag('facebook/show_string.html',takes_context=True)
 def show_facebook_possesive(context,user):
@@ -66,11 +62,7 @@ def show_facebook_greeting(context,user):
         p = user
     else:
         p = user.get_profile()
-    if settings.WIDGET_MODE:
-        #if we're rendering widgets, link direct to facebook
-        return {'string':u'Hello, <fb:name uid="%s" useyou="false" firstnameonly="true" />' % (p.facebook_id)}
-    else:
-        return {'string':u'Hello, <a href="%s">%s</a>!' % (p.get_absolute_url(),p.first_name)}
+    return {'string':u'Hello, <a href="%s">%s</a>!' % (p.get_absolute_url(),p.first_name)}
 
 @register.inclusion_tag('facebook/show_string.html',takes_context=True)
 def show_facebook_status(context,user):
@@ -88,7 +80,7 @@ def show_facebook_photo(context,user):
         p = user.get_profile()
     if settings.WIDGET_MODE:
         #if we're rendering widgets, link direct to facebook
-        return {'string':u'<fb:profile_pic uid="%s" facebook-logo="true" />' % (p.facebook_id)}
+        return {'string':u'<a href="%s"><img src="%s" alt="%s"/></a>' % (p.profile_url, p.picture_url, p.full_name)}
     else:
         return {'string':u'<a href="%s"><img src="%s" alt="%s"/></a>' % (p.get_absolute_url(), p.picture_url, p.full_name)}
 

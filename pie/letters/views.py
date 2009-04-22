@@ -26,7 +26,7 @@ from django.template import defaultfilters, RequestContext
 from django.template.defaultfilters import truncatewords
 from django.utils import simplejson
 
-from bartender.models import Article
+from pressroom.models import Article
 from letters.models import Letter,LetterForm,EditorPick
 from authentication.models import FacebookTemplate
 from search.models import Document

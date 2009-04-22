@@ -37,6 +37,7 @@
 
 /* base */
 html {margin:0;padding:0;font-family:Verdana, Arial, sans-serif;}
+p {font-family:Georgia,Garamond,serif;line-height:1.5em;}
 body {margin:0;padding:0;background-color:#fdfcf7;}
 input[type=submit],input[type=button] {font-size: 1em;}
 textarea {font-family:Verdana, Arial, sans-serif;}
@@ -179,7 +180,6 @@ div.article-questions .panel {padding:0;height:28em;overflow:auto;position:relat
 
 #article-body a.graf {display:block;position:relative;margin-left:-4em;padding-left:4em;}
 #article-body a.graf p {padding:0.5em;margin:0 -0.5em;}
-#article-body p {font-family:Georgia,Garamond,serif;line-height:1.5em;}
 
 #article-body a.graf a.annotation-button.new {display:none;}
 #article-body a.graf a.annotation-button {font-family:Verdana, Arial, sans-serif;display:block;position:absolute;top:0;left:3em;top:-1em;cursor:pointer;}
@@ -387,26 +387,10 @@ div#new-letter-errors {color:red;font-weight:bold;padding:0.5em;}
 .comments .feed-body p {margin-top:0;}
 .comments .feed-profile-pic {float:left;margin:.4em .4em 0 18px;}
 
-/* Forms */
-.big-form input[type=text],
-.big-form input[type=password],
-.big-form textarea {font-size:1.4em;width: 99%;}
-.big-form label{font-weight:bold;color:#999;display:block; margin-bottom:.5em;margin-top:1em;}
-.big-form input[type=submit]{font-size:1.4em;margin-top:1em;}
-
+/* Feedback */
+.feedback input[type=text],
+.feedback textarea {font-size:1.4em;width: 99%;}
+.feedback label{font-weight:bold;color:#999;display:block; margin-bottom:.5em;}
 .contact{margin-bottom: 1.5em;}
 .contact .column{margin-bottom: 1em;}
-.comments input[type=submit]{margin:.85em 0 0 0;font-size:1.6em;}
-
-/* bartender */
-.service-account {margin-bottom:2em;}
-.service-account h3 {background-color:#727B95;margin:0;padding:.4em;color:white;}
-.service-account h3 small {font-weight:normal;font-size:0.7em;}
-.service-account h3 a:link,
-.service-account h3 a:visited {color:white;}
-.service-account h3 a:active,
-.service-account h3 a:hover {color:#dfdfdf;}
-.service-account h5 {margin:2em 0.4em 0;}
-.service-account p {font-family:Verdana, Arial, sans-serif;margin:0.6em 0.4em;font-size:0.8em;}
-.service-account p strong {color:#333;}
-.service-account code {background-color:#dfdfdf;padding:0.8em 0.6em;display:block;}
+.feedback input[type=submit]{margin:.85em 0 0 0;font-size:2em;}

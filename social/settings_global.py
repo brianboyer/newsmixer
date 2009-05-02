@@ -58,7 +58,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.request",
-    "pie.authentication.context_processors.facebook",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -66,7 +65,7 @@ MIDDLEWARE_CLASSES = (
     'facebook.djangofb.FacebookMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'pie.authentication.middleware.FacebookConnectMiddleware',
+    'facebookconnect.middleware.FacebookConnectMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'djangodblog.middleware.DBLogMiddleware',
 )
@@ -84,26 +83,23 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     
     #'pie.articles',
-    'pie.authentication',
     'pie.quips',
-    'pie.profiles',
     'pie.questions',
     'pie.letters',
     'pie.bartender',
     
     'contact_form',#install django-contact-form to your python path, needs python akismet
     'search',      #install django-search to your python path
-    'photologue',  #install django-photologue to your python path
-    'pressroom',   #install django-pressroom to your python path
     'djangodblog', #install django-db-log to your python path
     
     'registration',
+    'facebookconnect',
 )
 
 # authentication
 AUTH_PROFILE_MODULE = "profiles.UserProfile"
 AUTHENTICATION_BACKENDS = (
-    'pie.authentication.models.FacebookBackend',
+    'facebookconnect.models.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend', #for auth unit tests
 )
 

@@ -33,8 +33,6 @@ urlpatterns = patterns('',
     (r'^questions/', include('pie.questions.urls')),
     (r'^bartender/', include('pie.bartender.urls')),
     
-    (r'^profiles/',include('pie.profiles.urls')),
-    
     (r'^admin/(.*)', admin.site.root),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^contact/', include('contact_form.urls')),

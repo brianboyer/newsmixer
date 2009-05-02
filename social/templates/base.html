@@ -1,11 +1,9 @@
-{% load facebook %}
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <title>{% block title %}{% endblock %} - News Mixer</title>
+    <title>{% block title %}News Mixer{% endblock %}</title>
     <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
     <script src="/public/jquery-1.2.6.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/public/form.js" type="text/javascript" charset="utf-8"></script>
@@ -40,16 +38,5 @@
         </p>
         <p>This is a project of the <a href="http://www.medill.northwestern.edu/">Medill School of Journalism</a> and <a href="http://www.gazettecommunications.com/">Gazette Communications</a>.</p>
     </div>
-    {% show_facebook_js %}
-    <script type="text/javascript">
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-        <script type="text/javascript">
-        try {
-        var pageTracker = _gat._getTracker("UA-4270061-4");
-        pageTracker._trackPageview();
-        } catch(err) {}
-    </script>
 </body>
 </html>

@@ -22,7 +22,6 @@ from django.db import models
 from pressroom.models import Article
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-import search
 
 class Letter(models.Model):
     """Letters to the Editor"""
@@ -40,7 +39,6 @@ class Letter(models.Model):
     
     def __unicode__(self):
         return u"%s" % (self.title)
-search.register(Letter,fields=[{"field_name":"title","is_title":True},{"field_name":"body"}])
 
 class LetterForm(ModelForm):
     """Form for the Letters"""

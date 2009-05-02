@@ -32,7 +32,7 @@ from django.core import serializers
 from bartender.models import Article
 from quips.models import Quip, QuipForm
 from facebook import Facebook
-from authentication.models import FacebookTemplate
+from facebookconnect.models import FacebookTemplate
 
 import logging
 
@@ -40,8 +40,8 @@ def get_quips(request):
     """ajax request for more quips"""
     if request.method == "POST":
         i = None;
-        if int(getattr(request.POST,'article',0)) > 0:
-            recent_quips = Quip.objects.filter(created__gt=request.POST['since'],article=Article.objects.get(pk=request.POST['article'])).order_by('-created')
+        if request.POST.get('article_url',False):
+            recent_quips = Quip.objects.filter(created__gt=request.POST['since'],article=Article.objects.get(url=request.POST['article_url'])).order_by('-created')
         else:
             recent_quips = Quip.objects.filter(created__gt=request.POST['since']).order_by('-created')
         if recent_quips:
@@ -70,7 +70,7 @@ VERB_COLORS = {
     'hates':     '#2e2a2b',
     }
 
-@login_required
+#@login_required
 def create(request,option=None):
     if request.method == "POST":
         f = QuipForm(request.POST, instance=Quip(user=request.user))

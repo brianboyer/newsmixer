@@ -27,7 +27,7 @@ from django.utils import simplejson
 
 from bartender.models import Article
 from questions.models import *
-from authentication.models import FacebookTemplate
+from facebookconnect.models import FacebookTemplate
 
 def get_questions(request):
     if request.method == "POST":

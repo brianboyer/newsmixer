@@ -29,8 +29,6 @@ from django.utils import simplejson
 from pressroom.models import Article
 from letters.models import Letter,LetterForm,EditorPick
 from authentication.models import FacebookTemplate
-from search.models import Document
-from search.backends.simple import SimpleSearcher
 
 def index(request):
     """display letters index page"""
@@ -60,18 +58,8 @@ def read_letter(request,letter_id):
     return render_to_response('letters/read_letter.html', template_dict, context_instance=RequestContext(request))
 
 def search(request):
-    """search letters"""
-    if request.method == "POST":
-        my = SimpleSearcher()
-        docs = my.query(request.POST["q"])
-        template_dict = {
-            'document_list': docs,
-            'q':request.POST["q"]
-        }
-        
-        return render_to_response('letters/search_results.html', template_dict, context_instance=RequestContext(request))
-    else:
-        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    # django-search is no more
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 @login_required
 def new_letter(request,article_id=None,letter_id=None):    

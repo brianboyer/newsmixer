@@ -91,7 +91,7 @@ INSTALLED_APPS = (
     'pie.letters',
     
     'contact_form',#install django-contact-form to your python path, needs python akismet
-    'search',      #install django-search to your python path
+    #'search',      #install django-search to your python path
     'photologue',  #install django-photologue to your python path
     'pressroom',   #install django-pressroom to your python path
     'djangodblog', #install django-db-log to your python path
@@ -103,12 +103,6 @@ AUTHENTICATION_BACKENDS = (
     'pie.authentication.models.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend', #for auth unit tests
 )
-
-#django-search
-SEARCH_CRAWLERS = (
-    "search.crawlers.models.ModelCrawler",
-)
-SEARCH_BACKEND = "search.backends.simple"
 
 #django-contact-form
 AKISMET_API_KEY = ""
